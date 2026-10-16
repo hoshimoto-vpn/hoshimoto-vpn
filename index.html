@@ -334,6 +334,11 @@ a.krow:hover { transform: translateY(-1px); border-color: rgba(255, 46, 77, 0.35
 .plan ul li { display: flex; gap: 10px; align-items: center; }
 .plan ul li.dev { color: var(--text-3); font-size: 13px; }
 .plan ul li.dev::before { background: none; box-shadow: none; border: 1px solid var(--tone); width: 5px; height: 5px; }
+.perks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.perk { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; align-items: center; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(var(--tone-rgb), 0.35); background: rgba(var(--tone-rgb), 0.07); }
+.perk svg { grid-row: span 2; width: 26px; height: 26px; color: var(--tone); filter: drop-shadow(0 0 5px rgba(var(--tone-rgb), 0.7)); }
+.perk b { font: 600 15px var(--font-body); color: var(--text); }
+.perk small { color: var(--text-3); font-size: 11.5px; line-height: 1.3; }
 .deal { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 10px 12px; border-radius: 10px; border: 1px dashed rgba(var(--tone-rgb), 0.5); background: rgba(var(--tone-rgb), 0.06); }
 .deal-tag { flex: none; font: 700 13px var(--font-body); letter-spacing: 0.02em; color: #fff; padding: 4px 8px; border-radius: 7px; background: linear-gradient(180deg, rgba(var(--tone-rgb), 0.9), rgba(var(--tone-rgb), 0.6)); box-shadow: 0 0 14px -4px rgba(var(--tone-rgb), 0.9); }
 .deal b { font: 600 14.5px var(--font-body); color: var(--text); }
@@ -521,6 +526,9 @@ a.os { cursor: pointer; }
   .server-cards { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
 }
 @media (max-width: 560px) {
+  .perk { padding: 10px; column-gap: 8px; }
+  .perk svg { width: 22px; height: 22px; }
+  .perk b { font-size: 14px; white-space: nowrap; }
   .dl-box { padding: 20px 14px 24px; gap: 20px; }
   .dl-tabs { gap: 4px; width: 100%; flex-wrap: nowrap; }
   .dl-tabs button { width: calc((100% - 16px) / 5); min-width: 0; height: 74px; font-size: 11.5px; gap: 6px; }
@@ -925,10 +933,10 @@ a.os { cursor: pointer; }
         <span class="plan-shine" aria-hidden="true"></span>
         <div class="plan-head"><span class="label">1 месяц</span><span class="badge b-red"><i></i>Популярный</span></div>
         <div class="plan-top">
-          <div><div class="price" data-price="month">350 ₽<span class="per">/ месяц</span></div><div class="note">оплата и продление через менеджера</div></div>
+          <div><div class="price" data-price="month">290 ₽<span class="per">/ месяц</span></div><div class="note">оплата и продление через менеджера</div></div>
           <svg class="plan-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="soft" d="M27 4 9 27h13l-3 17 20-25H26z" fill="currentColor" stroke="none"/><path d="M27 4 9 27h13l-3 17 20-25H26z"/></svg>
         </div>
-        <div class="deal"><span class="deal-tag">−200 ₽</span><span><b>2 ключа — 500 ₽</b> <s>700 ₽</s><small>для второго телефона или ноутбука</small></span></div>
+        <div class="deal"><span class="deal-tag">−200 ₽</span><span><b>2 ключа — 380 ₽</b> <s>580 ₽</s><small>для второго телефона или ноутбука</small></span></div>
         <ul><li>1 сервер на выбор — Нидерланды или США</li><li>Без ограничения трафика</li><li>Поддержка в Telegram</li><li class="dev">1 ключ — 1 устройство</li></ul>
         <a class="btn btn-primary" href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Подключить</a>
       </article>
@@ -936,10 +944,14 @@ a.os { cursor: pointer; }
         <span class="plan-shine" aria-hidden="true"></span>
         <div class="plan-head"><span class="label">1 год</span><span class="badge b-amber"><i></i>Все серверы</span></div>
         <div class="plan-top">
-          <div><div class="price" data-price="year">4 900 ₽<span class="per">/ год</span></div><div class="note">≈ 408 ₽ в месяц · доступ ко всем серверам</div></div>
+          <div><div class="price" data-price="year">3 900 ₽<span class="per">/ год</span></div><div class="note">≈ 325 ₽ в месяц · вся семья или все ваши устройства</div></div>
           <svg class="plan-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="soft" d="M7 15l9 9 8-13 8 13 9-9-4 22H11z" fill="currentColor" stroke="none"/><path d="M7 15l9 9 8-13 8 13 9-9-4 22H11z"/><path d="M11 42h26"/><circle cx="24" cy="10" r="2"/><circle cx="6" cy="14" r="2"/><circle cx="42" cy="14" r="2"/></svg>
         </div>
-        <ul><li>Все серверы — Нидерланды, США, скоро Германия</li><li>Без ограничения трафика</li><li>Поддержка в Telegram</li><li class="dev">1 ключ — 1 устройство</li></ul>
+        <div class="perks" aria-label="Что входит в годовой тариф">
+          <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg><b>3 сервера</b><small>Нидерланды, США, скоро Германия</small></div>
+          <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="13" height="10" rx="1.5"/><path d="M5 19h7"/><rect x="16" y="8" width="6" height="12" rx="1.5"/><path d="M19 17h.01"/></svg><b>3 устройства</b><small>телефон, ноутбук, планшет</small></div>
+        </div>
+        <ul><li>Все серверы — страна переключается в приложении</li><li>Без ограничения трафика</li><li>Поддержка в Telegram</li><li class="dev">Германия подключится, как только запустим</li></ul>
         <a class="btn btn-tone" href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Подключить</a>
       </article>
     </div>
@@ -969,7 +981,7 @@ a.os { cursor: pointer; }
       </details>
       <details>
         <summary><span class="q">05</span>Сколько устройств можно подключить?</summary>
-        <p>Один ключ — для одного устройства: если включить его на двух сразу, они будут мешать друг другу. Для второго устройства напишите нам — выдадим ещё ключ. На тарифе «1 месяц» два ключа стоят 500 ₽ вместо 700 ₽.</p>
+        <p>Один ключ — для одного устройства: если включить его на двух сразу, они будут мешать друг другу. Для второго устройства напишите нам — выдадим ещё ключ. На тарифе «1 месяц» два ключа стоят 380 ₽ вместо 580 ₽, а годовой тариф сразу рассчитан на 3 устройства.</p>
       </details>
       <details>
         <summary><span class="q">06</span>Зачем боту номер телефона?</summary>
