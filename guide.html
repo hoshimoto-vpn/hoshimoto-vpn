@@ -200,6 +200,7 @@ h1 em { font-style: normal; color: var(--red); text-shadow: 0 0 26px rgba(255, 4
 .stat-card[data-tone='red'] { --tone: var(--red); --tone-rgb: 255, 46, 77; }
 .stat-card[data-tone='cyan'] { --tone: var(--cyan); --tone-rgb: 34, 211, 238; }
 .stat-card[data-tone='amber'] { --tone: var(--amber); --tone-rgb: 255, 176, 32; }
+.stat-card[data-tone='green'] { --tone: var(--green); --tone-rgb: 34, 224, 122; }
 .stat-card.featured { border-color: rgba(var(--tone-rgb), 0.3); box-shadow: 0 0 26px -14px rgba(var(--tone-rgb), 0.55), var(--shadow); }
 .stat-text { min-width: 0; }
 .stat-title { font: 600 21px/1.2 var(--font-body); margin: 12px 0 8px; color: var(--tone); text-shadow: 0 0 16px rgba(var(--tone-rgb), 0.4); }
@@ -282,7 +283,11 @@ a.krow:hover { transform: translateY(-1px); border-color: rgba(255, 46, 77, 0.35
 }
 
 /* тарифы */
-.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+.plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.plans .plan { padding: 24px 20px; }
+.plans .plan .price { font-size: 30px; }
+@media (min-width: 1241px) { .plans .perks { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+@media (max-width: 1240px) { .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); } .plans .plan { padding: 26px; } .plans .plan .price { font-size: 34px; } }
 .plan { display: flex; flex-direction: column; gap: 6px; padding: 26px; isolation: isolate; }
 .plan.stat-card { align-items: stretch; min-height: 0; justify-content: flex-start; }
 .plan > * { position: relative; z-index: 1; }
@@ -293,6 +298,7 @@ a.krow:hover { transform: translateY(-1px); border-color: rgba(255, 46, 77, 0.35
 .plan .price .per { font: 500 14px var(--font-body); color: var(--text-3); letter-spacing: 0; text-shadow: none; margin-left: 6px; }
 .plan .price.small { font: 600 21px/1.3 var(--font-body); letter-spacing: 0; }
 .plan .note { color: var(--text-3); font-size: 13px; }
+.plan .note s { color: var(--text-3); opacity: 0.8; }
 .plan-ico {
   flex: none; width: 58px; height: 58px; color: var(--tone);
   filter: drop-shadow(0 0 6px rgba(var(--tone-rgb), 0.85)) drop-shadow(0 0 18px rgba(var(--tone-rgb), 0.35));
@@ -318,6 +324,7 @@ a.krow:hover { transform: translateY(-1px); border-color: rgba(255, 46, 77, 0.35
 .btn-tone { color: var(--text); border-color: rgba(var(--tone-rgb), 0.55); background: linear-gradient(180deg, rgba(var(--tone-rgb), 0.16), rgba(var(--tone-rgb), 0.06)); box-shadow: 0 0 16px -6px rgba(var(--tone-rgb), 0.6); }
 .btn-tone:hover { border-color: var(--tone); background: linear-gradient(180deg, rgba(var(--tone-rgb), 0.28), rgba(var(--tone-rgb), 0.1)); box-shadow: 0 0 24px -4px rgba(var(--tone-rgb), 0.85); }
 .b-amber { --b: 255, 176, 32; }
+.b-green { --b: 34, 224, 122; }
 
 /* анимация тарифов: бегущий огонёк по рамке, блик, подъём при наведении, появление по очереди */
 @property --orbit { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
@@ -330,6 +337,7 @@ a.krow:hover { transform: translateY(-1px); border-color: rgba(255, 46, 77, 0.35
 }
 .plan.featured::before { animation-duration: 4.5s; opacity: 1; }
 .plan:nth-child(3)::before { animation-delay: -3.5s; }
+.plan:nth-child(4)::before { animation-delay: -5.2s; }
 @keyframes orbit { to { --orbit: 360deg; } }
 .plan-shine {
   position: absolute !important; inset: 0; z-index: 0 !important; pointer-events: none; border-radius: inherit;
@@ -338,13 +346,16 @@ a.krow:hover { transform: translateY(-1px); border-color: rgba(255, 46, 77, 0.35
 }
 .plan:nth-child(2) .plan-shine { animation-delay: 2s; }
 .plan:nth-child(3) .plan-shine { animation-delay: 4s; }
+.plan:nth-child(4) .plan-shine { animation-delay: 6s; }
 @keyframes sheen { 0% { background-position: 130% 0; } 35%, 100% { background-position: -30% 0; } }
 .plan:nth-child(2) .plan-ico { animation-delay: -1.5s; }
 .plan:nth-child(3) .plan-ico { animation-delay: -3s; }
+.plan:nth-child(4) .plan-ico { animation-delay: -4.5s; }
 .plan.featured .badge i { animation: blink 1.6s ease-in-out infinite; }
 .plan.reveal { transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), translate 0.35s var(--ease), box-shadow 0.35s, border-color 0.35s; }
 .plans .plan:nth-child(2).reveal { transition-delay: 0.12s, 0.12s, 0s, 0s, 0s; }
 .plans .plan:nth-child(3).reveal { transition-delay: 0.24s, 0.24s, 0s, 0s, 0s; }
+.plans .plan:nth-child(4).reveal { transition-delay: 0.36s, 0.36s, 0s, 0s, 0s; }
 .plan:hover { translate: 0 -6px; border-color: rgba(var(--tone-rgb), 0.45); box-shadow: 0 18px 40px -18px rgba(var(--tone-rgb), 0.6), 0 0 30px -12px rgba(var(--tone-rgb), 0.7), var(--shadow); }
 .plan:hover::before { opacity: 1; }
 .plans-note { color: var(--text-3); font-size: 13.5px; margin-top: 18px; }
@@ -674,7 +685,7 @@ nav.links a.nav-cta { display: none; }
   nav.links a .code { display: inline; font-size: 11px; color: var(--red); }
   nav.links a[aria-current='page'] { background: rgba(255, 46, 77, 0.08); border-color: rgba(255, 46, 77, 0.3); }
   .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 24px; padding-top: 10px; }
-  .grid3, .plans { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
+  .grid3 { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
   .server-cards { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
 }
 @media (max-width: 1080px) {
@@ -683,6 +694,7 @@ nav.links a.nav-cta { display: none; }
   .hero-bg::after { background: linear-gradient(180deg, var(--bg) 0%, rgba(9, 9, 13, 0.8) 30%, rgba(9, 9, 13, 0.6) 52%, rgba(9, 9, 13, 0) 72%, var(--bg) 100%); }
   .hero-bg img { object-position: 47% 50%; }
 }
+@media (max-width: 700px) { .plans { grid-template-columns: minmax(0, 1fr); max-width: 640px; } }
 @media (max-width: 560px) {
   .hero-visual { height: 470px; margin: 0 -6px; }
   .hero-title em::before, .hero-title em::after { left: -4%; right: -4%; }
@@ -1320,9 +1332,10 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       { tag: 'Главная', t: 'Скачать приложение', d: 'Windows, macOS, iPhone, Android, Android TV', k: 'скачать установить приложение exe apk windows android iphone mac телевизор tv', u: home + '#download' },
       { tag: 'Главная', t: 'Как выглядит приложение', d: 'Скриншоты HOSHIMOTO VPN и AmneziaVPN', k: 'скриншот экран приложение вид', u: home + '#screens' },
       { tag: 'Главная', t: 'Серверы', d: 'Нидерланды, США, скоро Германия — нагрузка и скорость', k: 'сервер страна нидерланды сша германия скорость нагрузка', u: home + '#servers' },
-      { tag: 'Тарифы', t: 'Тарифы и цены', d: 'Пробный 7 дней · 1 месяц 290 ₽ · 1 год 3 900 ₽', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
-      { tag: 'Тарифы', t: '2 ключа на месяц — 380 ₽', d: 'Скидка 200 ₽ на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
-      { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '3 900 ₽ в год, все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
+      { tag: 'Тарифы', t: 'Тарифы и цены', d: 'Пробный 7 дней · 1 месяц 290 ₽ · 3 месяца 790 ₽ · 1 год 2 990 ₽', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '3 месяца — 2 сервера', d: '790 ₽ за 3 месяца (≈ 263 ₽ в месяц), две страны на выбор', k: 'три месяца квартал два сервера', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '2 ключа на месяц — 390 ₽', d: 'Скидка 190 ₽ на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '2 990 ₽ в год (≈ 249 ₽ в месяц), все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
       { tag: 'Поддержка', t: 'Написать в Telegram или WhatsApp', d: 'Оплата, продление и помощь с подключением', k: 'поддержка менеджер связаться оплатить продлить whatsapp telegram', u: home + '#faq' },
       { tag: 'Инструкция', t: 'Получить ключ в Telegram', d: 'Бот @Hoshimoto_VPN_bot, выбор сервера, без номера телефона', k: 'ключ бот телеграм номер', u: guide + '#key' },
       { tag: 'Инструкция', t: 'Установить приложение', d: 'iPhone, Android, Windows, macOS — по шагам', k: 'установка установить приложение', u: guide + '#install' },
