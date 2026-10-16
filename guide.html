@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>HOSHIMOTO VPN — быстрый интернет за 1 минуту</title>
+<title>Как подключить HOSHIMOTO VPN — инструкция</title>
 <meta name="description" content="Пошаговая инструкция: как получить ключ HOSHIMOTO VPN, установить AmneziaVPN на iPhone, Android, Windows и macOS, и что делать, если приложения нет в App Store вашей страны." />
 <meta name="theme-color" content="#09090d" />
 <meta property="og:title" content="Как подключить HOSHIMOTO VPN — инструкция" />
@@ -169,7 +169,7 @@ header.menu-open .menu-btn i:nth-child(3) { transform: translateY(-7px) rotate(-
 .actions { display: flex; gap: 8px; }
 
 /* ---------- первый экран ---------- */
-.hero { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr); gap: 44px; align-items: center; padding: 36px 0 16px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 44px; align-items: center; padding: 36px 0 16px; }
 h1 { font: 700 clamp(30px, 3.5vw, 54px)/1.12 Unbounded, var(--font-head); letter-spacing: -0.01em; margin: 10px 0 24px; }
 /* три строки: «Быстрый / интернет / за 1 минуту»; размер — от ширины колонки, чтобы строки не ломались */
 .hero > section:first-child { container-type: inline-size; }
@@ -177,6 +177,7 @@ h1 { font: 700 clamp(30px, 3.5vw, 54px)/1.12 Unbounded, var(--font-head); letter
 .hero-title .ln { display: block; white-space: nowrap; }
 h1 em { font-style: normal; color: var(--red); text-shadow: 0 0 26px rgba(255, 46, 77, 0.55); }
 .lead { font-size: clamp(16px, 1.3vw, 19px); color: var(--text-2); max-width: 560px; margin: 0 0 34px; }
+.lead b { color: var(--text); font-weight: 600; }
 .cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .trust { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 34px; align-items: center; }
 .trust .label { margin-right: 4px; }
@@ -184,37 +185,6 @@ h1 em { font-style: normal; color: var(--red); text-shadow: 0 0 26px rgba(255, 4
   border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.03); transition: color 0.15s, border-color 0.15s, box-shadow 0.15s; }
 .os svg { width: 20px; height: 20px; }
 .os:hover { color: var(--text); border-color: rgba(255, 46, 77, 0.45); box-shadow: 0 0 16px -6px rgba(255, 46, 77, 0.7); }
-
-/* бенто-сетка карточек справа: как «Обзор» панели */
-.bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(132px, auto); gap: 14px; }
-.tile { position: relative; overflow: hidden; padding: 20px; }
-.tile-main { grid-column: span 2; grid-row: span 2; padding: 0; --hud: rgba(255, 46, 77, 0.4); border-color: rgba(255, 46, 77, 0.2);
-  background: radial-gradient(80% 90% at 50% 45%, rgba(255, 46, 77, 0.12), transparent 70%), var(--card-bg); box-shadow: 0 0 34px -18px rgba(255, 46, 77, 0.7), var(--shadow); }
-.tile-main .tile-map { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.95; }
-.tile-main::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(18, 18, 24, 0.7), transparent 30%, transparent 62%, rgba(18, 18, 24, 0.92)); }
-.tm { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; padding: 20px 22px; gap: 10px; }
-.tm-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-.tm-foot { margin-top: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
-.tm-foot b { display: block; font: 500 15px var(--font-body); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tile.stat-card { display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; min-height: 0; padding: 18px 20px; }
-.tile .tv { font: 600 clamp(28px, 2.6vw, 38px)/1 var(--font-head); letter-spacing: -0.02em; color: var(--tone); text-shadow: 0 0 16px rgba(var(--tone-rgb), 0.45); margin-top: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.tile .tv small { font: 500 14px var(--font-body); color: var(--text-3); margin-left: 5px; letter-spacing: 0; text-shadow: none; }
-.tile .th { color: var(--text-2); font-size: 12.5px; margin-top: 8px; display: flex; align-items: center; gap: 7px; }
-.tile-icon { position: absolute; right: 18px; top: 50%; width: 62px; height: 62px; transform: translateY(-50%); color: var(--tone);
-  filter: drop-shadow(0 0 6px rgba(var(--tone-rgb), 0.85)) drop-shadow(0 0 18px rgba(var(--tone-rgb), 0.35)); pointer-events: none; }
-.tile-icon .soft { opacity: 0.35; }
-.tile-icon .led { animation: led 2.4s ease-in-out infinite; }
-.tile-icon .led.l2 { animation-delay: 0.8s; }
-.tile-icon .led.l3 { animation-delay: 1.6s; }
-@keyframes led { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-.tile .bar { height: 3px; border-radius: 3px; background: rgba(255, 255, 255, 0.08); overflow: hidden; margin-top: 12px; }
-.tile .bar i { display: block; height: 100%; width: 0; background: var(--tone); box-shadow: 0 0 10px var(--tone); animation: grow 1.4s 0.5s var(--ease) forwards; }
-.tile-chart { grid-column: span 2; display: flex; flex-direction: column; gap: 10px; }
-.tile-chart .net-chart { flex: 1; min-height: 64px; }
-.tile-chart .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; row-gap: 4px; }
-.tile-chart .head .label { white-space: nowrap; }
-.tile-chart .head .now { margin-left: auto; font: 400 12px var(--font-mono); color: var(--text-2); white-space: nowrap; }
-@keyframes grow { to { width: var(--w, 100%); } }
 
 /* ---------- разделы ---------- */
 .block { padding: 64px 0 20px; }
@@ -498,6 +468,147 @@ a.os { cursor: pointer; }
 .soon-led { animation: blink 1.4s ease-in-out infinite; }
 .soon-led.b { animation-delay: 0.7s; }
 
+/* кнопка-иконка в шапке (поиск) */
+.icon-btn {
+  display: inline-flex; flex: none; align-items: center; justify-content: center; width: 42px; height: 42px; padding: 0; border-radius: var(--radius-sm); cursor: pointer;
+  border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.03); color: var(--text-2); transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+nav.links a.nav-cta { display: none; }
+.icon-btn:hover { color: var(--text); border-color: rgba(255, 46, 77, 0.45); box-shadow: 0 0 16px -6px rgba(255, 46, 77, 0.7); }
+
+/* поиск по сайту */
+.search { position: fixed; inset: 0; z-index: 100; display: flex; justify-content: center; align-items: flex-start; padding: 12vh 16px 16px; background: rgba(5, 5, 8, 0.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: search-in 0.18s var(--ease); }
+.search[hidden] { display: none; }
+@keyframes search-in { from { opacity: 0; } }
+.search-box { width: min(640px, 100%); max-height: 76vh; display: flex; flex-direction: column; overflow: hidden; --hud: rgba(255, 46, 77, 0.45); border-color: rgba(255, 46, 77, 0.25); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 40px -20px rgba(255, 46, 77, 0.6); }
+.search-field { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); color: var(--text-3); }
+.search-field input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: var(--text); font: 400 17px var(--font-body); }
+.search-field input::placeholder { color: var(--text-3); }
+.search-field input::-webkit-search-cancel-button { display: none; }
+.search-close { flex: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line-strong); background: none; color: var(--text-3); font: 400 11px var(--font-mono); }
+.search-list { overflow-y: auto; padding: 8px; }
+.search-item { display: flex; flex-direction: column; gap: 3px; padding: 11px 12px; border-radius: 10px; border: 1px solid transparent; color: var(--text); cursor: pointer; }
+.search-item small { color: var(--text-3); font-size: 13px; line-height: 1.45; }
+.search-item .tag { align-self: flex-start; font: 400 10px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+.search-item mark { background: rgba(255, 46, 77, 0.25); color: var(--text); border-radius: 3px; padding: 0 1px; }
+.search-item.on, .search-item:hover { background: rgba(255, 46, 77, 0.08); border-color: rgba(255, 46, 77, 0.3); }
+.search-empty { padding: 22px 14px; color: var(--text-3); text-align: center; font-size: 14px; }
+.search-foot { display: flex; gap: 18px; padding: 10px 18px; border-top: 1px solid var(--line); color: var(--text-3); font: 400 11px var(--font-mono); }
+@media (max-width: 560px) { .search { padding-top: 10px; } .search-box { max-height: 88vh; } .search-foot { display: none; } }
+
+/* как выглядит приложение — два телефона */
+.shots { margin-top: 26px; }
+.shots-head { margin-bottom: 12px; }
+.shots-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.shot.stat-card { margin: 0; flex-direction: column; align-items: center; justify-content: flex-start; gap: 16px; padding: 26px 20px 22px; min-height: 0;
+  background: radial-gradient(60% 50% at 50% 40%, rgba(var(--tone-rgb), 0.12), transparent 70%), var(--card-bg); }
+.shot img { width: min(240px, 72%); height: auto; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(var(--tone-rgb), 0.25)); transition: transform 0.4s var(--ease); }
+.shot:hover img { transform: translateY(-6px); }
+.shot figcaption { text-align: center; }
+.shot figcaption b { display: block; font: 600 17px var(--font-body); color: var(--tone); text-shadow: 0 0 14px rgba(var(--tone-rgb), 0.4); }
+.shot figcaption small { color: var(--text-3); font-size: 13px; }
+@media (max-width: 560px) { .shots-grid { gap: 10px; } .shot.stat-card { padding: 16px 10px; gap: 10px; } .shot img { width: 92%; } .shot figcaption b { font-size: 15px; } .shot figcaption small { font-size: 11.5px; } }
+
+/* первый экран: подпись, кнопки, телефон на фоне карты */
+.hero-kicker { display: inline-flex; align-items: center; gap: 12px; font: 500 clamp(12px, 1.05vw, 15px) var(--font-mono); letter-spacing: 0.12em; color: var(--red); text-shadow: 0 0 14px rgba(255, 46, 77, 0.55); margin-bottom: 18px; }
+.hero-kicker i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); animation: blink 1.6s ease-in-out infinite; }
+.btn-hero {
+  height: 58px; padding: 0 9px 0 22px; gap: 14px; border-radius: 12px; font: 600 15.5px var(--font-body); color: #fff; border: 0;
+  background: linear-gradient(90deg, #ff2e4d, #ff3d81); box-shadow: 0 10px 30px -8px rgba(255, 46, 77, 0.75), 0 0 0 1px rgba(255, 120, 150, 0.35) inset;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s;
+}
+.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -8px rgba(255, 46, 77, 0.9), 0 0 0 1px rgba(255, 150, 170, 0.5) inset; background: linear-gradient(90deg, #ff3d5a, #ff4d8d); }
+.btn-hero .btn-ico { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); color: #ff2e4d; }
+.btn-outline { height: 58px; padding: 0 22px; border-radius: 12px; background: rgba(255, 255, 255, 0.02); border-color: var(--line-strong); }
+.trust { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 10px; margin-top: 34px; }
+.trust-note { grid-column: 1 / -1; color: var(--text-3); font-size: 14px; margin-top: 4px; }
+
+.hero { position: relative; isolation: isolate; }
+.hero > section { position: relative; z-index: 1; }
+/* карта мира — фоном за текстом и телефоном (в пределах первого экрана); слева, под текстом, плавно темнеет */
+.hero-bg { position: absolute; z-index: 0; inset: 0; pointer-events: none; overflow: hidden; border-radius: var(--radius);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent), linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); -webkit-mask-composite: source-in;
+  mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent) intersect, linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; opacity: 1; }
+.hero-bg::after { content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(38% 46% at 16% 60%, rgba(255, 46, 100, 0.13), rgba(255, 46, 100, 0) 70%),
+    radial-gradient(34% 40% at 90% 94%, rgba(255, 46, 77, 0.16), rgba(255, 46, 77, 0) 70%),
+    linear-gradient(90deg, rgba(9, 9, 13, 0.7) 0%, rgba(9, 9, 13, 0.55) 25%, rgba(9, 9, 13, 0.3) 42%, rgba(9, 9, 13, 0) 58%); }
+.hero-visual { position: relative; height: clamp(440px, 46vw, 600px); isolation: isolate; }
+.hv-glow { position: absolute; z-index: 1; border-radius: 50%; filter: blur(42px); mix-blend-mode: screen; pointer-events: none; animation: hv-breathe 7s ease-in-out infinite; }
+.hv-glow-a { width: 48%; height: 52%; left: 32%; top: 20%; background: radial-gradient(circle, rgba(255, 46, 120, 0.42), rgba(255, 46, 100, 0.14) 45%, rgba(255, 46, 77, 0) 70%); }
+@keyframes hv-breathe { 50% { transform: scale(1.08); opacity: 0.8; } }
+.hv-device { position: absolute; z-index: 2; left: 50%; top: 50%; height: 100%; aspect-ratio: 762 / 1040; transform: translate(-44%, -50%); animation: hv-float 6s ease-in-out infinite; }
+.hv-phone { display: block; width: 100%; height: 100%; filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 40px rgba(255, 46, 77, 0.25)); }
+/* блик на верхнем правом углу корпуса: яркое ядро, ореол, полоса вдоль кромки и тонкие лучи */
+.hv-flare { position: absolute; left: 92.5%; top: 6.3%; width: 0; height: 0; pointer-events: none; mix-blend-mode: screen; }
+.hv-flare i { position: absolute; left: 0; top: 0; translate: -50% -50%; border-radius: 50%; }
+.f-core { width: 54px; height: 54px; background: radial-gradient(circle, #fff 0, #fff 14%, rgba(205, 250, 255, 0.95) 24%, rgba(80, 225, 245, 0.55) 44%, rgba(34, 211, 238, 0) 70%); animation: flare-pulse 4.5s ease-in-out infinite; }
+.f-halo { width: 260px; height: 260px; background: radial-gradient(circle, rgba(120, 235, 250, 0.42) 0, rgba(34, 211, 238, 0.18) 28%, rgba(34, 211, 238, 0.05) 50%, rgba(34, 211, 238, 0) 68%); animation: flare-pulse 4.5s ease-in-out infinite; }
+.f-streak { width: 520px; height: 3px; border-radius: 3px; rotate: 8deg; filter: blur(0.6px);
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0), rgba(34, 211, 238, 0.35) 28%, rgba(220, 252, 255, 0.95) 50%, rgba(34, 211, 238, 0.35) 72%, rgba(34, 211, 238, 0)); }
+.f-streak-2 { width: 300px; height: 16px; filter: blur(6px); opacity: 0.55; }
+.f-rays { width: 240px; height: 240px; filter: blur(0.7px); animation: flare-shimmer 7s ease-in-out infinite;
+  background: conic-gradient(from 0deg, transparent 2.1deg, rgba(215, 250, 255, 0.6) 3deg, transparent 3.9deg, transparent 22.8deg, rgba(215, 250, 255, 0.32) 24deg, transparent 25.2deg, transparent 40.4deg, rgba(215, 250, 255, 0.6) 41deg, transparent 41.6deg, transparent 66.4deg, rgba(215, 250, 255, 0.45) 67deg, transparent 67.6deg, transparent 87.4deg, rgba(215, 250, 255, 0.18) 88deg, transparent 88.6deg, transparent 111.1deg, rgba(215, 250, 255, 0.18) 112deg, transparent 112.9deg, transparent 132.4deg, rgba(215, 250, 255, 0.45) 133deg, transparent 133.6deg, transparent 156.8deg, rgba(215, 250, 255, 0.45) 158deg, transparent 159.2deg, transparent 179.8deg, rgba(215, 250, 255, 0.18) 181deg, transparent 182.2deg, transparent 203.4deg, rgba(215, 250, 255, 0.25) 204deg, transparent 204.6deg, transparent 225.1deg, rgba(215, 250, 255, 0.25) 226deg, transparent 226.9deg, transparent 246.4deg, rgba(215, 250, 255, 0.32) 247deg, transparent 247.6deg, transparent 267.4deg, rgba(215, 250, 255, 0.45) 268deg, transparent 268.6deg, transparent 290.4deg, rgba(215, 250, 255, 0.18) 291deg, transparent 291.6deg, transparent 312.8deg, rgba(215, 250, 255, 0.6) 314deg, transparent 315.2deg, transparent 336.4deg, rgba(215, 250, 255, 0.45) 337deg, transparent 337.6deg);
+  -webkit-mask: radial-gradient(circle, #000 0, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0.15) 30%, transparent 50%); mask: radial-gradient(circle, #000 0, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0.15) 30%, transparent 50%); }
+@keyframes flare-pulse { 50% { transform: scale(0.86); opacity: 0.8; } }
+@keyframes flare-shimmer { 50% { rotate: 4deg; opacity: 0.7; } }
+@keyframes hv-float { 50% { transform: translate(-44%, calc(-50% - 12px)); } }
+.hv-tag { position: absolute; z-index: 3; display: flex; align-items: center; gap: 8px; font: 500 13px var(--font-mono); letter-spacing: 0.08em; color: var(--cyan); text-shadow: 0 0 12px rgba(34, 211, 238, 0.6); }
+.hv-tag i { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); flex: none; }
+.hv-tag-a { left: 3%; top: 68%; }
+.hv-tag-a i::after { content: ''; position: absolute; left: 3px; top: 3px; width: 90px; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); transform-origin: 0 0; transform: rotate(-38deg); opacity: 0.7; }
+.hv-tag-b { right: 4%; bottom: 9%; }
+.hv-tag-b span { padding-bottom: 6px; border-bottom: 1px solid rgba(34, 211, 238, 0.55); }
+.hv-code { position: absolute; z-index: 3; left: -12%; bottom: 3%; font: 400 10px/1.5 var(--font-mono); letter-spacing: 0.06em; color: rgba(34, 211, 238, 0.55); }
+.hv-node { position: absolute; z-index: 3; display: flex; align-items: center; gap: 6px; font: 400 10px var(--font-mono); color: rgba(34, 211, 238, 0.75); }
+.hv-node i { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+.hv-node-a { left: 26%; top: 4%; }
+.hv-node-b { right: 2%; top: 38%; }
+@media (prefers-reduced-motion: reduce) { .hv-device, .hv-glow, .hv-flare i { animation: none; } }
+
+/* «за 1 минуту» — розовое свечение и световые штрихи по сторонам */
+.hero-title em { position: relative; text-shadow: 0 0 16px rgba(255, 46, 77, 0.8), 0 0 46px rgba(255, 46, 77, 0.45); }
+.hero-title em::before, .hero-title em::after {
+  content: ''; position: absolute; left: -14%; right: -18%; height: 2px; pointer-events: none; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 61, 129, 0.55) 18%, rgba(255, 200, 215, 0.95) 46%, rgba(255, 61, 129, 0.6) 72%, transparent);
+  filter: blur(0.6px); opacity: 0.85; animation: streak 5s ease-in-out infinite;
+}
+.hero-title em::before { top: 40%; }
+.hero-title em::after { top: 64%; left: -6%; right: -26%; height: 1px; opacity: 0.55; animation-delay: -2.5s; }
+@keyframes streak { 0%, 100% { transform: translateX(-3%); opacity: 0.35; } 50% { transform: translateX(3%); opacity: 0.9; } }
+
+/* кнопка в HUD-уголках */
+.btn-hud { position: relative; }
+.btn-hud::after {
+  content: ''; position: absolute; inset: -9px; pointer-events: none; --c: rgba(34, 211, 238, 0.7); --s: 10px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) top left / 1px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) top right / 1px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) bottom left / 1px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) bottom right / 1px var(--s) no-repeat;
+}
+.btn-outline.btn-hud { border-color: rgba(34, 211, 238, 0.28); }
+.btn-outline.btn-hud:hover { border-color: rgba(34, 211, 238, 0.6); box-shadow: 0 0 22px -8px rgba(34, 211, 238, 0.8); }
+
+/* уголки по краям всего первого экрана и тонкая сетка на фоне */
+.hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; --c: rgba(255, 255, 255, 0.3); --s: 26px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) top left / 1px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) top right / 1px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) bottom left / 1px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) bottom right / 1px var(--s) no-repeat;
+}
+.hero-bg::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 64px 64px, linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 64px 64px; }
+
+/* мелкий технический текст у карты */
+.hv-log { position: absolute; z-index: 3; left: -4%; top: 3%; display: flex; flex-direction: column; gap: 3px; font: 400 8.5px/1.25 var(--font-mono); letter-spacing: 0.06em; color: rgba(34, 211, 238, 0.42); text-transform: uppercase; }
+.hv-log b { font-weight: 500; color: rgba(34, 211, 238, 0.7); margin-top: 6px; }
+.hv-log b:first-child { margin-top: 0; padding-bottom: 3px; border-bottom: 1px solid rgba(34, 211, 238, 0.3); }
+
 /* ---------- адаптив ---------- */
 @media (max-width: 1500px) {
   nav.links a .code { display: none; }
@@ -520,11 +631,33 @@ a.os { cursor: pointer; }
   nav.links a .code { display: inline; font-size: 11px; color: var(--red); }
   nav.links a[aria-current='page'] { background: rgba(255, 46, 77, 0.08); border-color: rgba(255, 46, 77, 0.3); }
   .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 24px; padding-top: 10px; }
-  .bento { width: 100%; max-width: 680px; }
   .grid3, .plans { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
   .server-cards { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
 }
+@media (max-width: 1080px) {
+  .hv-log { display: none; }
+  .hv-code { left: 2%; }
+  .hero-bg::after { background: linear-gradient(180deg, var(--bg) 0%, rgba(9, 9, 13, 0.8) 30%, rgba(9, 9, 13, 0.6) 52%, rgba(9, 9, 13, 0) 72%, var(--bg) 100%); }
+  .hero-bg img { object-position: 47% 50%; }
+}
 @media (max-width: 560px) {
+  .hero-visual { height: 470px; margin: 0 -6px; }
+  .hero-title em::before, .hero-title em::after { left: -4%; right: -4%; }
+  .hero::after { --s: 16px; }
+  .hv-device { height: 88%; }
+  .hv-flare { scale: 0.7; }
+  .hv-tag { font-size: 11px; }
+  .hv-tag-a { left: 2%; top: 72%; }
+  .hv-tag-a i::after { width: 50px; }
+  .hv-code { left: 4%; font-size: 9px; }
+  .hv-node-a { left: 4%; top: 6%; }
+  .hv-tag-b { top: 3%; bottom: auto; right: 3%; }
+  .hv-node-b { display: none; }
+  .btn-hero, .btn-outline { width: 100%; justify-content: space-between; }
+  .btn-outline { justify-content: center; }
+  header .actions .btn-primary { display: none; }
+  nav.links a.nav-cta { display: flex; justify-content: center; margin-top: 6px; color: #fff; font-weight: 600; border-color: rgba(255, 46, 77, 0.85);
+    background: linear-gradient(180deg, rgba(255, 46, 77, 0.32), rgba(197, 0, 34, 0.22)); box-shadow: 0 0 18px -4px rgba(255, 46, 77, 0.7); }
   .perk { padding: 10px; column-gap: 8px; }
   .perk svg { width: 22px; height: 22px; }
   .perk b { font-size: 14px; white-space: nowrap; }
@@ -550,14 +683,6 @@ a.os { cursor: pointer; }
   .cta { flex-direction: column; }
   .cta .btn { width: 100%; }
   .stat-card { min-height: 0; padding: 22px; }
-  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; gap: 10px; }
-  .tile-main { grid-column: 1 / -1; grid-row: auto; min-height: 380px; }
-  .tile-chart { grid-column: 1 / -1; }
-  .tile-chart .head .now { flex-basis: 100%; margin-left: 0; }
-  .tile.stat-card { grid-column: 1 / -1; min-height: 112px; }
-  .tile.stat-card { padding: 16px; }
-  .tile .tv { font-size: 26px; }
-  .tm-foot b { font-size: 13.5px; }
   .stat-icon { width: 54px; height: 54px; }
   .krow { grid-template-columns: 46px minmax(0, 1fr); gap: 12px; padding: 14px 16px; }
   .krow .n { font-size: 26px; }
@@ -572,11 +697,15 @@ a.os { cursor: pointer; }
   header .brand { --h: 28px; gap: 8px; }
   header .actions .btn { padding: 0 12px; font-size: 13px; }
   header .actions { gap: 6px; }
-  .menu-btn { width: 40px; height: 40px; }
+  .menu-btn, .icon-btn { width: 38px; height: 38px; }
   header { gap: 12px; }
   .cta-long { display: none; }
+  .hero-visual { height: 420px; }
+  .hv-device { height: 84%; }
 }
 @media (max-width: 360px) {
+  .btn-hero { padding: 0 8px 0 16px; gap: 10px; font-size: 14.5px; }
+  .btn-hero .btn-ico { width: 36px; height: 36px; }
   header { gap: 12px; }
   header .brand { --h: 23px; gap: 7px; }
 }
@@ -711,8 +840,10 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       <a href="index.html#pricing">Тарифы<span class="code">04</span></a>
       <a href="index.html#faq">Вопросы<span class="code">05</span></a>
       <a href="guide.html" aria-current="page">Инструкция<span class="code">06</span></a>
+      <a class="nav-cta" href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">Получить VPN — 7 дней бесплатно</a>
     </nav>
     <div class="actions">
+      <button class="icon-btn search-btn" type="button" aria-label="Поиск по сайту" title="Поиск (Ctrl+K)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <a class="btn btn-primary" href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">Получить<span class="cta-long"> VPN</span></a>
       <button class="menu-btn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav"><i></i><i></i><i></i></button>
     </div>
@@ -1024,6 +1155,18 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
     <span class="copy">© 2026 HOSHIMOTO Virtual Private Network</span>
   </footer>
 </div>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Поиск по сайту" hidden>
+  <div class="search-box card hud">
+    <div class="search-field">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search-q" type="search" placeholder="Например: цена, iPhone, AmneziaWG, Windows" autocomplete="off" spellcheck="false" />
+      <button class="search-close" type="button" aria-label="Закрыть поиск">Esc</button>
+    </div>
+    <div class="search-list" id="search-list" role="listbox"></div>
+    <div class="search-foot"><span>↑ ↓ выбрать</span><span>Enter открыть</span><span>Ctrl+K поиск</span></div>
+  </div>
+</div>
+
 
 <script>
   // вкладки устройств; сразу открываем вкладку под устройство посетителя
@@ -1115,6 +1258,121 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
     document.addEventListener('click', function (e) { if (h.classList.contains('menu-open') && !h.contains(e.target)) set(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
     window.addEventListener('resize', function () { if (window.innerWidth > 1080) set(false); });
+  })();
+
+  // поиск по сайту: список разделов обеих страниц + вопросы FAQ; открывается лупой, Ctrl+K или «/»
+  (function () {
+    var box = document.getElementById('search');
+    var input = document.getElementById('search-q');
+    var list = document.getElementById('search-list');
+    var btn = document.querySelector('.search-btn');
+    if (!box || !input || !btn) return;
+    var onGuide = /guide\.html$/.test(location.pathname);
+    var home = onGuide ? 'index.html' : '';
+    var guide = onGuide ? '' : 'guide.html';
+    var ITEMS = [
+      { tag: 'Главная', t: 'Попробовать 7 дней бесплатно', d: 'Пробный ключ в Telegram-боте, без карты и оплаты', k: 'бесплатно пробный триал тест 7 дней бот', u: home + '#how' },
+      { tag: 'Главная', t: 'Возможности', d: 'Скорость, шифрование, работа при блокировках', k: 'преимущества шифрование защита скорость', u: home + '#features' },
+      { tag: 'Главная', t: 'Как начать — три шага', d: 'Бот → номер и сервер → вставить ключ', k: 'начать подключить бот ключ шаги', u: home + '#how' },
+      { tag: 'Главная', t: 'Скачать приложение', d: 'Windows, macOS, iPhone, Android, Android TV', k: 'скачать установить приложение exe apk windows android iphone mac телевизор tv', u: home + '#download' },
+      { tag: 'Главная', t: 'Как выглядит приложение', d: 'Скриншоты HOSHIMOTO VPN и AmneziaVPN', k: 'скриншот экран приложение вид', u: home + '#screens' },
+      { tag: 'Главная', t: 'Серверы', d: 'Нидерланды, США, скоро Германия — нагрузка и скорость', k: 'сервер страна нидерланды сша германия скорость нагрузка', u: home + '#servers' },
+      { tag: 'Тарифы', t: 'Тарифы и цены', d: 'Пробный 7 дней · 1 месяц 290 ₽ · 1 год 3 900 ₽', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '2 ключа на месяц — 380 ₽', d: 'Скидка 200 ₽ на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '3 900 ₽ в год, все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
+      { tag: 'Поддержка', t: 'Написать в Telegram или WhatsApp', d: 'Оплата, продление и помощь с подключением', k: 'поддержка менеджер связаться оплатить продлить whatsapp telegram', u: home + '#faq' },
+      { tag: 'Инструкция', t: 'Получить ключ в Telegram', d: 'Бот @Hoshimoto_VPN_bot, подтверждение номера, выбор сервера', k: 'ключ бот телеграм номер', u: guide + '#key' },
+      { tag: 'Инструкция', t: 'Установить приложение', d: 'iPhone, Android, Windows, macOS — по шагам', k: 'установка установить приложение', u: guide + '#install' },
+      { tag: 'Инструкция', t: 'Добавить ключ и подключиться', d: 'Вставить vpn:// ключ, QR-код, файл для AmneziaWG', k: 'вставить ключ qr код подключиться amneziawg conf файл', u: guide + '#connect' },
+      { tag: 'Инструкция', t: 'Нет AmneziaVPN в App Store', d: 'Сменить страну Apple ID на США, готовые адреса, второй Apple ID', k: 'app store эпстор регион страна сша apple id айфон iphone недоступно адрес', u: guide + '#appstore' },
+      { tag: 'Инструкция', t: 'PDF-инструкция в картинках', d: 'Смена региона на iPhone по скриншотам', k: 'pdf картинки скриншоты регион', u: guide + '#pdf' },
+      { tag: 'Инструкция', t: 'Не подключается?', d: 'Неверный ключ, сайты не открываются, перестало работать', k: 'ошибка не работает не подключается проблема помощь', u: guide + '#help' },
+    ];
+    // вопросы FAQ — с главной страницы (на инструкции — заранее известный список)
+    var FAQ = ['Что такое HOSHIMOTO VPN?', 'Как начать пользоваться?', 'Это правда бесплатно?', 'На каких устройствах работает?', 'Сколько устройств можно подключить?', 'Зачем боту номер телефона?', 'Что делать, если не подключается?'];
+    FAQ.forEach(function (q, i) {
+      var el = !onGuide && document.querySelector('#faq-' + (i + 1) + ' p');
+      ITEMS.push({ tag: 'Вопрос', t: q, d: el ? el.textContent.trim().slice(0, 140) : '', k: 'вопрос faq', u: home + '#faq-' + (i + 1) });
+    });
+
+    var norm = function (x) { return x.toLowerCase().replace(/ё/g, 'е'); };
+    var esc = function (x) { return x.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var found = [], cur = 0;
+    function mark(text, words) {
+      var out = esc(text);
+      words.forEach(function (w) {
+        if (w.length < 2) return;
+        out = out.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
+      });
+      return out;
+    }
+    function render() {
+      var q = norm(input.value.trim());
+      var words = q.split(/\s+/).filter(Boolean);
+      found = ITEMS.map(function (it) {
+        var title = norm(it.t), hay = title + ' ' + norm(it.d) + ' ' + norm(it.k);
+        if (!words.every(function (w) { return hay.indexOf(w) >= 0; })) return null;
+        var score = words.reduce(function (a, w) { return a + (title.indexOf(w) >= 0 ? 2 : 1); }, 0);
+        return { it: it, score: score };
+      }).filter(Boolean).sort(function (a, b) { return b.score - a.score; }).slice(0, 12).map(function (x) { return x.it; });
+      if (!words.length) found = ITEMS.slice(0, 8);
+      cur = 0;
+      list.innerHTML = found.length
+        ? found.map(function (it, i) { return '<a class="search-item' + (i === 0 ? ' on' : '') + '" role="option" href="' + it.u + '" data-i="' + i + '"><span class="tag">' + esc(it.tag) + '</span><b>' + mark(it.t, words) + '</b>' + (it.d ? '<small>' + mark(it.d, words) + '</small>' : '') + '</a>'; }).join('')
+        : '<div class="search-empty">Ничего не нашлось. Попробуйте другое слово — например, «цена» или «iPhone».</div>';
+    }
+    function select(i) {
+      var items = list.querySelectorAll('.search-item');
+      if (!items.length) return;
+      cur = (i + items.length) % items.length;
+      items.forEach(function (el, k) { el.classList.toggle('on', k === cur); });
+      items[cur].scrollIntoView({ block: 'nearest' });
+    }
+    function open() {
+      box.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
+      input.value = '';
+      render();
+      setTimeout(function () { input.focus(); }, 30);
+    }
+    function close() {
+      box.hidden = true;
+      document.documentElement.style.overflow = '';
+    }
+    // переход по результату: на этой странице — плавно к блоку (и раскрыть вопрос), на другой — обычная ссылка
+    function go(u) {
+      var hash = u.split('#')[1], page = u.split('#')[0];
+      close();
+      if (page) { location.href = u; return; }
+      var el = document.getElementById(hash);
+      if (!el) return;
+      if (el.tagName === 'DETAILS') el.open = true;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    btn.addEventListener('click', open);
+    box.querySelector('.search-close').addEventListener('click', close);
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+    input.addEventListener('input', render);
+    list.addEventListener('click', function (e) {
+      var a = e.target.closest('.search-item');
+      if (!a) return;
+      e.preventDefault();
+      go(found[Number(a.dataset.i)].u);
+    });
+    document.addEventListener('keydown', function (e) {
+      var typing = /INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '') && document.activeElement !== input;
+      if ((e.key === 'k' || e.key === 'K' || e.key === 'л' || e.key === 'Л') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); box.hidden ? open() : close(); return; }
+      if (e.key === '/' && box.hidden && !typing) { e.preventDefault(); open(); return; }
+      if (box.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); select(cur + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); select(cur - 1); }
+      else if (e.key === 'Enter' && found[cur]) { e.preventDefault(); go(found[cur].u); }
+    });
+    // пришли с другой страницы на вопрос FAQ — раскрыть его
+    var h = location.hash.slice(1);
+    var target = h && document.getElementById(h);
+    if (target && target.tagName === 'DETAILS') target.open = true;
   })();
 
   // плавное появление при прокрутке, как на главной
