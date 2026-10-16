@@ -496,28 +496,71 @@ nav.links a.nav-cta { display: none; }
 .search-foot { display: flex; gap: 18px; padding: 10px 18px; border-top: 1px solid var(--line); color: var(--text-3); font: 400 11px var(--font-mono); }
 @media (max-width: 560px) { .search { padding-top: 10px; } .search-box { max-height: 88vh; } .search-foot { display: none; } }
 
-/* как выглядит приложение — два телефона */
+/* как выглядит приложение — два телефона в карточках с вырезами по бокам (как в HUD-интерфейсе) */
 .shots { margin-top: 26px; }
-.shots-head { margin-bottom: 12px; }
-.shots-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.shot.stat-card { margin: 0; flex-direction: column; align-items: center; justify-content: flex-start; gap: 16px; padding: 26px 20px 22px; min-height: 0;
-  background: radial-gradient(60% 50% at 50% 40%, rgba(var(--tone-rgb), 0.12), transparent 70%), var(--card-bg); }
-.shot img { width: min(240px, 72%); height: auto; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(var(--tone-rgb), 0.25)); transition: transform 0.4s var(--ease); }
-.shot:hover img { transform: translateY(-6px); }
-.shot figcaption { text-align: center; }
-.shot figcaption b { display: block; font: 600 17px var(--font-body); color: var(--tone); text-shadow: 0 0 14px rgba(var(--tone-rgb), 0.4); }
-.shot figcaption small { color: var(--text-3); font-size: 13px; }
-@media (max-width: 560px) { .shots-grid { gap: 10px; } .shot.stat-card { padding: 16px 10px; gap: 10px; } .shot img { width: 92%; } .shot figcaption b { font-size: 15px; } .shot figcaption small { font-size: 11.5px; } }
+.shots-head { margin-bottom: 14px; }
+.shots-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.shot { --tone: var(--red); --tone-rgb: 255, 46, 77; --n: 12px; position: relative; isolation: isolate; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 46px 24px 36px;
+  --notch: polygon(0 0, 100% 0, 100% 30%, calc(100% - var(--n)) calc(30% + var(--n)), calc(100% - var(--n)) calc(70% - var(--n)), 100% 70%, 100% 100%, 0 100%, 0 70%, var(--n) calc(70% - var(--n)), var(--n) calc(30% + var(--n)), 0 30%); }
+.shot[data-tone='amber'] { --tone: #ff9f2e; --tone-rgb: 255, 159, 46; }
+/* контур: светлее сверху и снизу, у вырезов — ярче */
+.shot::before { content: ''; position: absolute; inset: 0; z-index: -2; border-radius: 22px; clip-path: var(--notch);
+  background: linear-gradient(180deg, rgba(var(--tone-rgb), 0.55), rgba(var(--tone-rgb), 0.16) 26%, rgba(var(--tone-rgb), 0.4) 50%, rgba(var(--tone-rgb), 0.16) 74%, rgba(var(--tone-rgb), 0.5)); }
+/* заливка: тёмная, со свечением цвета карточки за телефоном и снизу слева, точечная фактура по бокам */
+.shot-bg { position: absolute; inset: 1px; z-index: -1; border-radius: 21px; clip-path: var(--notch); overflow: hidden;
+  background:
+    radial-gradient(42% 34% at 50% 44%, rgba(var(--tone-rgb), 0.2), transparent 70%),
+    radial-gradient(60% 45% at 0% 100%, rgba(var(--tone-rgb), 0.26), transparent 70%),
+    radial-gradient(50% 40% at 100% 0%, rgba(var(--tone-rgb), 0.08), transparent 70%),
+    linear-gradient(180deg, #17171f, #101016); }
+.shot-bg::before { content: ''; position: absolute; inset: 0; opacity: 0.5;
+  background: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.4px) 0 0 / 9px 9px;
+  -webkit-mask: linear-gradient(90deg, #000 0, transparent 22%, transparent 78%, #000 100%); mask: linear-gradient(90deg, #000 0, transparent 22%, transparent 78%, #000 100%); }
+/* искры: медленно поднимаются и мерцают */
+.shot-sparks { position: absolute; inset: -40% 0 0; animation: sparks 16s linear infinite;
+  background:
+    radial-gradient(circle, rgba(var(--tone-rgb), 0.9) 0 1.2px, transparent 2px) 7% 18% / 160px 150px,
+    radial-gradient(circle, rgba(var(--tone-rgb), 0.6) 0 1px, transparent 1.6px) 63% 41% / 110px 130px,
+    radial-gradient(circle, rgba(255, 220, 200, 0.55) 0 0.8px, transparent 1.4px) 31% 77% / 90px 170px,
+    radial-gradient(circle, rgba(var(--tone-rgb), 0.75) 0 1.5px, transparent 2.4px) 88% 9% / 210px 190px; }
+.shot-sparks::after { content: ''; position: absolute; inset: 0; animation: shot-tw 3.4s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(var(--tone-rgb), 0.9) 0 1.3px, transparent 2.2px) 40% 30% / 140px 230px, radial-gradient(circle, rgba(255, 230, 210, 0.6) 0 1px, transparent 1.8px) 12% 60% / 180px 120px; }
+@keyframes sparks { to { transform: translateY(25%); } }
+@keyframes shot-tw { 50% { opacity: 0.25; } }
+/* HUD-уголки внутри карточки */
+.shot::after { content: ''; position: absolute; inset: 18px; pointer-events: none; --c: rgba(var(--tone-rgb), 0.85); --s: 14px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--s) 2px no-repeat, linear-gradient(var(--c), var(--c)) top left / 2px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--s) 2px no-repeat, linear-gradient(var(--c), var(--c)) top right / 2px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--s) 2px no-repeat, linear-gradient(var(--c), var(--c)) bottom left / 2px var(--s) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--s) 2px no-repeat, linear-gradient(var(--c), var(--c)) bottom right / 2px var(--s) no-repeat; }
+.shot img { position: relative; width: min(290px, 50%); height: auto; transition: transform 0.5s var(--ease);
+  filter: drop-shadow(0 0 1px rgba(var(--tone-rgb), 0.9)) drop-shadow(0 0 18px rgba(var(--tone-rgb), 0.55)) drop-shadow(0 30px 40px rgba(0, 0, 0, 0.7)); }
+.shot:hover img { transform: translateY(-8px); }
+.shot figcaption { position: relative; text-align: center; }
+.shot figcaption b { display: block; font: 600 clamp(22px, 2.3vw, 32px)/1.15 var(--font-body); color: var(--tone); text-shadow: 0 0 22px rgba(var(--tone-rgb), 0.55); }
+.shot figcaption small { display: block; margin-top: 6px; color: var(--text-2); font-size: clamp(13px, 1.25vw, 18px); }
+@media (prefers-reduced-motion: reduce) { .shot-sparks, .shot-sparks::after { animation: none; } }
+@media (max-width: 560px) {
+  .shots-grid { gap: 10px; }
+  .shot { --n: 6px; gap: 12px; padding: 26px 10px 20px; }
+  .shot::before { border-radius: 14px; }
+  .shot-bg { border-radius: 13px; }
+  .shot::after { inset: 9px; --s: 9px; }
+  .shot img { width: 72%; }
+  .shot figcaption b { font-size: 16px; }
+  .shot figcaption small { font-size: 11.5px; }
+}
 
 /* первый экран: подпись, кнопки, телефон на фоне карты */
 .hero-kicker { display: inline-flex; align-items: center; gap: 12px; font: 500 clamp(12px, 1.05vw, 15px) var(--font-mono); letter-spacing: 0.12em; color: var(--red); text-shadow: 0 0 14px rgba(255, 46, 77, 0.55); margin-bottom: 18px; }
 .hero-kicker i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); animation: blink 1.6s ease-in-out infinite; }
 .btn-hero {
   height: 58px; padding: 0 9px 0 22px; gap: 14px; border-radius: 12px; font: 600 15.5px var(--font-body); color: #fff; border: 0;
-  background: linear-gradient(90deg, #ff2e4d, #ff3d81); box-shadow: 0 10px 30px -8px rgba(255, 46, 77, 0.75), 0 0 0 1px rgba(255, 120, 150, 0.35) inset;
+  background: linear-gradient(90deg, #ff2e4d, #d9112e); box-shadow: 0 10px 30px -8px rgba(255, 46, 77, 0.75), 0 0 0 1px rgba(255, 120, 140, 0.35) inset;
   transition: transform 0.2s var(--ease), box-shadow 0.2s;
 }
-.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -8px rgba(255, 46, 77, 0.9), 0 0 0 1px rgba(255, 150, 170, 0.5) inset; background: linear-gradient(90deg, #ff3d5a, #ff4d8d); }
+.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -8px rgba(255, 46, 77, 0.9), 0 0 0 1px rgba(255, 150, 160, 0.5) inset; background: linear-gradient(90deg, #ff4560, #e81a38); }
 .btn-hero .btn-ico { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); color: #ff2e4d; }
 .btn-outline { height: 58px; padding: 0 22px; border-radius: 12px; background: rgba(255, 255, 255, 0.02); border-color: var(--line-strong); }
 .trust { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 10px; margin-top: 34px; }
@@ -545,11 +588,11 @@ nav.links a.nav-cta { display: none; }
 .hv-flare { position: absolute; left: 92.5%; top: 6.3%; width: 0; height: 0; pointer-events: none; mix-blend-mode: screen; }
 .hv-flare i { position: absolute; left: 0; top: 0; translate: -50% -50%; border-radius: 50%; }
 .f-core { width: 54px; height: 54px; background: radial-gradient(circle, #fff 0, #fff 14%, rgba(205, 250, 255, 0.95) 24%, rgba(80, 225, 245, 0.55) 44%, rgba(34, 211, 238, 0) 70%); animation: flare-pulse 4.5s ease-in-out infinite; }
-.f-halo { width: 260px; height: 260px; background: radial-gradient(circle, rgba(120, 235, 250, 0.42) 0, rgba(34, 211, 238, 0.18) 28%, rgba(34, 211, 238, 0.05) 50%, rgba(34, 211, 238, 0) 68%); animation: flare-pulse 4.5s ease-in-out infinite; }
-.f-streak { width: 520px; height: 3px; border-radius: 3px; rotate: 8deg; filter: blur(0.6px);
-  background: linear-gradient(90deg, rgba(34, 211, 238, 0), rgba(34, 211, 238, 0.35) 28%, rgba(220, 252, 255, 0.95) 50%, rgba(34, 211, 238, 0.35) 72%, rgba(34, 211, 238, 0)); }
-.f-streak-2 { width: 300px; height: 16px; filter: blur(6px); opacity: 0.55; }
-.f-rays { width: 240px; height: 240px; filter: blur(0.7px); animation: flare-shimmer 7s ease-in-out infinite;
+.f-halo { width: 190px; height: 190px; background: radial-gradient(circle, rgba(120, 235, 250, 0.42) 0, rgba(34, 211, 238, 0.18) 28%, rgba(34, 211, 238, 0.05) 50%, rgba(34, 211, 238, 0) 68%); animation: flare-pulse 4.5s ease-in-out infinite; }
+.hv-flare .f-streak { width: 300px; height: 3px; border-radius: 3px; translate: -72% -50%; transform-origin: 72% 50%; rotate: 8deg; filter: blur(0.6px);
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0), rgba(34, 211, 238, 0.3) 35%, rgba(220, 252, 255, 0.95) 72%, rgba(34, 211, 238, 0.25) 86%, rgba(34, 211, 238, 0)); }
+.hv-flare .f-streak-2 { width: 180px; height: 14px; filter: blur(6px); opacity: 0.55; }
+.f-rays { width: 190px; height: 190px; filter: blur(0.7px); animation: flare-shimmer 7s ease-in-out infinite;
   background: conic-gradient(from 0deg, transparent 2.1deg, rgba(215, 250, 255, 0.6) 3deg, transparent 3.9deg, transparent 22.8deg, rgba(215, 250, 255, 0.32) 24deg, transparent 25.2deg, transparent 40.4deg, rgba(215, 250, 255, 0.6) 41deg, transparent 41.6deg, transparent 66.4deg, rgba(215, 250, 255, 0.45) 67deg, transparent 67.6deg, transparent 87.4deg, rgba(215, 250, 255, 0.18) 88deg, transparent 88.6deg, transparent 111.1deg, rgba(215, 250, 255, 0.18) 112deg, transparent 112.9deg, transparent 132.4deg, rgba(215, 250, 255, 0.45) 133deg, transparent 133.6deg, transparent 156.8deg, rgba(215, 250, 255, 0.45) 158deg, transparent 159.2deg, transparent 179.8deg, rgba(215, 250, 255, 0.18) 181deg, transparent 182.2deg, transparent 203.4deg, rgba(215, 250, 255, 0.25) 204deg, transparent 204.6deg, transparent 225.1deg, rgba(215, 250, 255, 0.25) 226deg, transparent 226.9deg, transparent 246.4deg, rgba(215, 250, 255, 0.32) 247deg, transparent 247.6deg, transparent 267.4deg, rgba(215, 250, 255, 0.45) 268deg, transparent 268.6deg, transparent 290.4deg, rgba(215, 250, 255, 0.18) 291deg, transparent 291.6deg, transparent 312.8deg, rgba(215, 250, 255, 0.6) 314deg, transparent 315.2deg, transparent 336.4deg, rgba(215, 250, 255, 0.45) 337deg, transparent 337.6deg);
   -webkit-mask: radial-gradient(circle, #000 0, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0.15) 30%, transparent 50%); mask: radial-gradient(circle, #000 0, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0.15) 30%, transparent 50%); }
 @keyframes flare-pulse { 50% { transform: scale(0.86); opacity: 0.8; } }
@@ -572,7 +615,7 @@ nav.links a.nav-cta { display: none; }
 .hero-title em { position: relative; text-shadow: 0 0 16px rgba(255, 46, 77, 0.8), 0 0 46px rgba(255, 46, 77, 0.45); }
 .hero-title em::before, .hero-title em::after {
   content: ''; position: absolute; left: -14%; right: -18%; height: 2px; pointer-events: none; border-radius: 2px;
-  background: linear-gradient(90deg, transparent, rgba(255, 61, 129, 0.55) 18%, rgba(255, 200, 215, 0.95) 46%, rgba(255, 61, 129, 0.6) 72%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 46, 77, 0.55) 18%, rgba(255, 190, 196, 0.95) 46%, rgba(255, 46, 77, 0.6) 72%, transparent);
   filter: blur(0.6px); opacity: 0.85; animation: streak 5s ease-in-out infinite;
 }
 .hero-title em::before { top: 40%; }
@@ -589,8 +632,8 @@ nav.links a.nav-cta { display: none; }
     linear-gradient(var(--c), var(--c)) bottom left / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) bottom left / 1px var(--s) no-repeat,
     linear-gradient(var(--c), var(--c)) bottom right / var(--s) 1px no-repeat, linear-gradient(var(--c), var(--c)) bottom right / 1px var(--s) no-repeat;
 }
-.btn-outline.btn-hud { border-color: rgba(34, 211, 238, 0.28); }
-.btn-outline.btn-hud:hover { border-color: rgba(34, 211, 238, 0.6); box-shadow: 0 0 22px -8px rgba(34, 211, 238, 0.8); }
+.btn-outline.btn-hud { border-color: rgba(34, 211, 238, 0.28); background: linear-gradient(180deg, #1a1a22, #121218); }
+.btn-outline.btn-hud:hover { border-color: rgba(34, 211, 238, 0.6); box-shadow: 0 0 22px -8px rgba(34, 211, 238, 0.8); background: linear-gradient(180deg, #1e1e27, #15151c); }
 
 /* уголки по краям всего первого экрана и тонкая сетка на фоне */
 .hero::after {
@@ -876,7 +919,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
         </a>
         <div class="krow reveal">
           <span class="n">2</span>
-          <div><b>Нажмите «Поделиться номером» и выберите сервер</b><small>номер — одно нажатие (один бесплатный ключ на человека), затем страна: Нидерланды или США</small></div>
+          <div><b>Нажмите «Получить ключ» и выберите сервер</b><small>номер телефона не нужен — одно нажатие, затем страна: Нидерланды или США (один бесплатный ключ на Telegram-аккаунт)</small></div>
         </div>
         <div class="krow reveal">
           <span class="n">3</span>
@@ -1273,7 +1316,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
     var ITEMS = [
       { tag: 'Главная', t: 'Попробовать 7 дней бесплатно', d: 'Пробный ключ в Telegram-боте, без карты и оплаты', k: 'бесплатно пробный триал тест 7 дней бот', u: home + '#how' },
       { tag: 'Главная', t: 'Возможности', d: 'Скорость, шифрование, работа при блокировках', k: 'преимущества шифрование защита скорость', u: home + '#features' },
-      { tag: 'Главная', t: 'Как начать — три шага', d: 'Бот → номер и сервер → вставить ключ', k: 'начать подключить бот ключ шаги', u: home + '#how' },
+      { tag: 'Главная', t: 'Как начать — три шага', d: 'Бот → сервер → вставить ключ', k: 'начать подключить бот ключ шаги', u: home + '#how' },
       { tag: 'Главная', t: 'Скачать приложение', d: 'Windows, macOS, iPhone, Android, Android TV', k: 'скачать установить приложение exe apk windows android iphone mac телевизор tv', u: home + '#download' },
       { tag: 'Главная', t: 'Как выглядит приложение', d: 'Скриншоты HOSHIMOTO VPN и AmneziaVPN', k: 'скриншот экран приложение вид', u: home + '#screens' },
       { tag: 'Главная', t: 'Серверы', d: 'Нидерланды, США, скоро Германия — нагрузка и скорость', k: 'сервер страна нидерланды сша германия скорость нагрузка', u: home + '#servers' },
@@ -1281,7 +1324,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       { tag: 'Тарифы', t: '2 ключа на месяц — 380 ₽', d: 'Скидка 200 ₽ на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
       { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '3 900 ₽ в год, все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
       { tag: 'Поддержка', t: 'Написать в Telegram или WhatsApp', d: 'Оплата, продление и помощь с подключением', k: 'поддержка менеджер связаться оплатить продлить whatsapp telegram', u: home + '#faq' },
-      { tag: 'Инструкция', t: 'Получить ключ в Telegram', d: 'Бот @Hoshimoto_VPN_bot, подтверждение номера, выбор сервера', k: 'ключ бот телеграм номер', u: guide + '#key' },
+      { tag: 'Инструкция', t: 'Получить ключ в Telegram', d: 'Бот @Hoshimoto_VPN_bot, выбор сервера, без номера телефона', k: 'ключ бот телеграм номер', u: guide + '#key' },
       { tag: 'Инструкция', t: 'Установить приложение', d: 'iPhone, Android, Windows, macOS — по шагам', k: 'установка установить приложение', u: guide + '#install' },
       { tag: 'Инструкция', t: 'Добавить ключ и подключиться', d: 'Вставить vpn:// ключ, QR-код, файл для AmneziaWG', k: 'вставить ключ qr код подключиться amneziawg conf файл', u: guide + '#connect' },
       { tag: 'Инструкция', t: 'Нет AmneziaVPN в App Store', d: 'Сменить страну Apple ID на США, готовые адреса, второй Apple ID', k: 'app store эпстор регион страна сша apple id айфон iphone недоступно адрес', u: guide + '#appstore' },
@@ -1289,7 +1332,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       { tag: 'Инструкция', t: 'Не подключается?', d: 'Неверный ключ, сайты не открываются, перестало работать', k: 'ошибка не работает не подключается проблема помощь', u: guide + '#help' },
     ];
     // вопросы FAQ — с главной страницы (на инструкции — заранее известный список)
-    var FAQ = ['Что такое HOSHIMOTO VPN?', 'Как начать пользоваться?', 'Это правда бесплатно?', 'На каких устройствах работает?', 'Сколько устройств можно подключить?', 'Зачем боту номер телефона?', 'Что делать, если не подключается?'];
+    var FAQ = ['Что такое HOSHIMOTO VPN?', 'Как начать пользоваться?', 'Это правда бесплатно?', 'На каких устройствах работает?', 'Сколько устройств можно подключить?', 'Нужен ли номер телефона?', 'Что делать, если не подключается?'];
     FAQ.forEach(function (q, i) {
       var el = !onGuide && document.querySelector('#faq-' + (i + 1) + ' p');
       ITEMS.push({ tag: 'Вопрос', t: q, d: el ? el.textContent.trim().slice(0, 140) : '', k: 'вопрос faq', u: home + '#faq-' + (i + 1) });
