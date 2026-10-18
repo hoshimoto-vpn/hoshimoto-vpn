@@ -868,6 +868,45 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
   .plan-switch button { flex: 1; padding: 10px 8px; }
   .plan-switch button small { display: block; margin: 2px 0 0; }
 }
+
+/* ---------- помощник «Хоши» (3D-робот в углу) ---------- */
+.hoshi { position: fixed; right: 18px; bottom: 10px; z-index: 70; display: flex; align-items: flex-end; gap: 6px; pointer-events: none; }
+.hoshi[hidden] { display: none; }
+.hoshi > * { pointer-events: auto; }
+.hoshi-stage { position: relative; width: 150px; height: 196px; padding: 0; border: 0; cursor: pointer; flex: none;
+  background: url(assets/assistant/bot-poster.webp) center bottom 6px / auto 86% no-repeat; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.6)); transition: width 0.3s var(--ease), height 0.3s var(--ease); }
+.hoshi-live .hoshi-stage { background: none; }
+.hoshi-stage canvas { display: block; width: 100% !important; height: 100% !important; }
+.hoshi-bubble { position: relative; width: min(300px, calc(100vw - 196px)); margin-bottom: 118px; padding: 14px 14px 10px; border-radius: 16px 16px 4px 16px;
+  border: 1px solid rgba(255, 46, 77, 0.45); background: rgba(14, 14, 20, 0.95); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.9), 0 0 26px -12px rgba(255, 46, 77, 0.8); animation: hoshi-in 0.35s var(--ease); }
+.hoshi-bubble[hidden] { display: none; }
+.hoshi-text { margin: 0 20px 10px 0; min-height: 2.9em; font-size: 14px; line-height: 1.45; color: var(--text); }
+.hoshi-chips { display: flex; flex-direction: column; gap: 6px; }
+.hoshi-chip { display: block; padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.03); color: var(--text-2);
+  font: 500 13px var(--font-body); text-align: left; text-decoration: none; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+.hoshi-chip:hover { color: var(--text); border-color: rgba(255, 46, 77, 0.5); background: rgba(255, 46, 77, 0.08); }
+.hoshi-chip.main { color: #fff; border-color: transparent; background: linear-gradient(90deg, #ff2e4d, #d9112e); box-shadow: 0 8px 20px -8px rgba(255, 46, 77, 0.8); }
+.hoshi-close { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--text-3); font-size: 20px; line-height: 1; cursor: pointer; }
+.hoshi-close:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+.hoshi-hide { margin-top: 8px; padding: 0; border: 0; background: none; color: var(--text-3); font-size: 11.5px; text-decoration: underline; cursor: pointer; }
+.hoshi-min .hoshi-bubble { display: none; }
+.hoshi-min .hoshi-stage { width: 100px; height: 130px; }
+.hoshi-return { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: flex; align-items: center; justify-content: center; gap: 7px; width: 48px; height: 42px;
+  border-radius: 12px; border: 1px solid rgba(255, 46, 77, 0.5); background: #141418; cursor: pointer; box-shadow: 0 0 18px -6px rgba(255, 46, 77, 0.8); }
+.hoshi-return i { width: 6px; height: 15px; border-radius: 3px; background: #fff4f7; box-shadow: 0 0 8px #ff466e; }
+@keyframes hoshi-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
+@media (max-width: 560px) {
+  .hoshi { right: 4px; bottom: 4px; }
+  .hoshi-stage { width: 96px; height: 126px; }
+  .hoshi-bubble { width: min(268px, calc(100vw - 108px)); margin-bottom: 72px; }
+  .hoshi-text { font-size: 13px; min-height: 0; }
+  .hoshi-chip { padding: 7px 10px; font-size: 12.5px; }
+  .hoshi-min .hoshi-stage { width: 74px; height: 96px; }
+}
+.hoshi-spot { animation: hoshi-spot 2.6s var(--ease); border-radius: 18px; }
+@keyframes hoshi-spot { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 46, 77, 0); } 15%, 60% { box-shadow: 0 0 0 2px rgba(255, 46, 77, 0.55), 0 0 42px -6px rgba(255, 46, 77, 0.6); } }
+@media print { .hoshi, .hoshi-return { display: none; } }
 </style>
 </head>
 <body>
@@ -1823,6 +1862,24 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       });
     });
   })();
+</script>
+
+<!-- помощник «Хоши»: 3D-робот, подсказывает по сайту (assets/assistant) -->
+<div class="hoshi" id="hoshi" aria-live="polite">
+  <div class="hoshi-bubble" hidden>
+    <button class="hoshi-close" type="button" aria-label="Свернуть подсказки">×</button>
+    <p class="hoshi-text"></p>
+    <div class="hoshi-chips"></div>
+    <button class="hoshi-hide" type="button">Скрыть помощника</button>
+  </div>
+  <button class="hoshi-stage" type="button" aria-label="Помощник Хоши — подсказки по сайту"></button>
+</div>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<script type="module">
+  // помощник грузится, когда страница уже готова — сайт не ждёт 3D
+  const go = () => import('./assets/assistant/assistant.js').catch(() => undefined);
+  const later = () => ('requestIdleCallback' in window ? requestIdleCallback(() => setTimeout(go, 600)) : setTimeout(go, 1500));
+  document.readyState === 'complete' ? later() : addEventListener('load', later);
 </script>
 </body>
 </html>
