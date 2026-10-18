@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HOSHIMOTO VPN — быстрый интернет за 1 минуту</title>
-<meta name="description" content="HOSHIMOTO VPN: быстрый и защищённый доступ к интернету на протоколе AmneziaWG. Работает там, где другие VPN блокируют. 7 дней бесплатно — ключ приходит в Telegram." />
+<meta name="description" content="HOSHIMOTO VPN: быстрый VPN без ограничений — подписка Happ (все страны сразу) или AmneziaVPN. Работает там, где другие VPN блокируют. 7 дней бесплатно — ключ приходит в Telegram." />
 <meta name="theme-color" content="#09090d" />
 <meta property="og:title" content="HOSHIMOTO VPN — быстрый интернет за 1 минуту" />
 <meta property="og:description" content="Быстрый и защищённый VPN. 7 дней бесплатно — ключ приходит в Telegram." />
@@ -830,6 +830,44 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
   .earn-cta .btn-gold { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { nav.links a.nav-earn::before { animation: none; } }
+
+/* ---------- Happ: два способа подключения, Happ в загрузках и тарифах ---------- */
+.apps2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.app-card { --tone-rgb: 34, 211, 238; --hud: rgba(var(--tone-rgb), 0.45); padding: 26px; border-color: rgba(var(--tone-rgb), 0.24);
+  background: radial-gradient(80% 110% at 100% 0%, rgba(var(--tone-rgb), 0.1), transparent 60%), var(--card-bg); }
+.app-card[data-tone='red'] { --tone-rgb: 255, 46, 77; }
+.app-card .app-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.app-card .app-ico { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: rgb(var(--tone-rgb));
+  border: 1px solid rgba(var(--tone-rgb), 0.45); background: rgba(var(--tone-rgb), 0.1); box-shadow: 0 0 18px -6px rgba(var(--tone-rgb), 0.8); }
+.app-card .app-ico svg { width: 22px; height: 22px; }
+.app-card h3 { margin: 0; font: 600 22px var(--font-head); }
+.app-card h3 small { display: block; font: 400 12.5px var(--font-body); color: var(--text-3); margin-top: 2px; }
+.app-card .app-price { margin-left: auto; text-align: right; font: 600 22px var(--font-head); color: rgb(var(--tone-rgb)); text-shadow: 0 0 18px rgba(var(--tone-rgb), 0.45); white-space: nowrap; }
+.app-card .app-price small { display: block; font: 400 12px var(--font-body); color: var(--text-3); text-shadow: none; }
+.app-card ul { list-style: none; margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(var(--tone-rgb), 0.16); display: flex; flex-direction: column; gap: 9px; color: var(--text-2); font-size: 14px; }
+.app-card li { display: flex; gap: 10px; align-items: baseline; }
+.app-card li::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 2px; background: rgb(var(--tone-rgb)); box-shadow: 0 0 8px rgb(var(--tone-rgb)); transform: translateY(-2px); }
+.app-card li b { color: var(--text); font-weight: 500; }
+.dlp-btn.dlp-happ { --tone-rgb: 34, 211, 238; }
+.dlp-or { margin: -4px 0 -2px; font: 400 11px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.happ-strip { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: -12px 0 22px; padding: 12px 16px; border-radius: 12px;
+  border: 1px solid rgba(34, 211, 238, 0.28); background: rgba(34, 211, 238, 0.05); color: var(--text-2); font-size: 14px; }
+.happ-strip b { color: var(--text); font-weight: 500; }
+.happ-strip .flags { font-size: 18px; letter-spacing: 4px; }
+.plan-switch { display: inline-flex; gap: 4px; padding: 4px; margin: -10px 0 22px; border-radius: 12px; border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.02); }
+.plan-switch button { padding: 10px 18px; border-radius: 9px; border: 1px solid transparent; background: none; color: var(--text-2); font: 500 14.5px var(--font-body); cursor: pointer; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+.plan-switch button small { color: var(--text-3); font-weight: 400; margin-left: 6px; }
+.plan-switch button:hover { color: var(--text); }
+.plan-switch button[aria-pressed='true'] { color: #fff; border-color: rgba(34, 211, 238, 0.7); background: rgba(34, 211, 238, 0.12); box-shadow: 0 0 16px -6px rgba(34, 211, 238, 0.9); }
+.plan-switch button[data-app='awg'][aria-pressed='true'] { border-color: rgba(255, 46, 77, 0.75); background: rgba(255, 46, 77, 0.12); box-shadow: 0 0 16px -6px rgba(255, 46, 77, 0.9); }
+.plans[hidden] { display: none; }
+@media (max-width: 860px) { .apps2 { grid-template-columns: minmax(0, 1fr); max-width: 640px; } }
+@media (max-width: 560px) {
+  .app-card { padding: 20px; }
+  .plan-switch { display: flex; }
+  .plan-switch button { flex: 1; padding: 10px 8px; }
+  .plan-switch button small { display: block; margin: 2px 0 0; }
+}
 </style>
 </head>
 <body>
@@ -902,7 +940,7 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
         <div class="stat-text">
           <div class="label">Свободный доступ</div>
           <div class="stat-title">Обходит блокировки</div>
-          <p class="stat-hint">AmneziaWG маскирует VPN под обычный трафик — подключение работает там, где другие VPN отключают.</p>
+          <p class="stat-hint">VLESS Reality и AmneziaWG маскируют VPN под обычный трафик — подключение работает там, где другие VPN отключают.</p>
         </div>
         <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M24 4 41 11v12c0 11-7.3 18.6-17 21C14.3 41.6 7 34 7 23V11l17-7Z" /><path d="M15 24h18M28 18l6 6-6 6" /><path class="soft" d="M3 45 45 3" />
@@ -921,8 +959,8 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       <article class="card hud stat-card reveal" data-tone="amber">
         <div class="stat-text">
           <div class="label">Все устройства</div>
-          <div class="stat-title">Одно приложение</div>
-          <p class="stat-hint">iPhone, Android, Windows и macOS — AmneziaVPN. Подключение в одно нажатие.</p>
+          <div class="stat-title">Два приложения</div>
+          <p class="stat-hint">Happ — все страны в одной подписке, или AmneziaVPN. iPhone, Android, Windows, macOS и TV.</p>
         </div>
         <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="4" y="9" width="30" height="21" rx="2.5" /><path d="M2 36h26" /><rect x="32" y="18" width="13" height="24" rx="2.5" /><path d="M37 38h3" />
@@ -943,13 +981,41 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       </a>
       <div class="krow reveal">
         <span class="n">02</span>
-        <div><b>Нажмите «Получить ключ» и выберите сервер</b><small>Без номера телефона и регистрации — одно нажатие, затем страна: Нидерланды или США. Один бесплатный ключ на Telegram-аккаунт</small></div>
+        <div><b>Нажмите «Получить ключ» и выберите приложение</b><small>⚡️ Happ — все страны в одной подписке, или 🛡 AmneziaVPN — сервер на выбор. Без номера телефона и регистрации, один бесплатный ключ на Telegram-аккаунт</small></div>
       </div>
       <a class="krow reveal" href="guide.html">
         <span class="n">03</span>
-        <div><b>Вставьте ключ — готово</b><small>в приложении AmneziaVPN → «+» → вставить ключ. Нет приложения в App Store? Есть инструкция</small></div>
+        <div><b>Добавьте в приложение — готово</b><small>Happ: откройте ссылку из бота → «Добавить подписку». AmneziaVPN: «+» → вставить ключ. Подробно — в инструкции</small></div>
         <span class="badge b-red go"><i></i>Инструкция</span>
       </a>
+    </div>
+    <div class="apps2">
+      <article class="card hud app-card reveal" data-tone="cyan">
+        <div class="app-head">
+          <span class="app-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg></span>
+          <h3>Happ<small>подписка · VLESS Reality</small></h3>
+          <span class="app-price">от 190 ₽<small>в месяц</small></span>
+        </div>
+        <ul>
+          <li><span><b>Все страны в одной подписке</b> — Финляндия, Нидерланды, США, страна переключается в приложении</span></li>
+          <li><span><b>2 устройства</b> на одну подписку</span></li>
+          <li><span>Есть в <b>App Store и Google Play</b> — без смены региона, плюс Windows, Mac и TV</span></li>
+          <li><span>Подписка добавляется одной кнопкой со страницы из бота</span></li>
+        </ul>
+      </article>
+      <article class="card hud app-card reveal" data-tone="red">
+        <div class="app-head">
+          <span class="app-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6.5v5.5c0 5-3.4 8.6-8 9.5-4.6-.9-8-4.5-8-9.5V6.5L12 3Z"/></svg></span>
+          <h3>AmneziaVPN<small>ключ · AmneziaWG</small></h3>
+          <span class="app-price">от 290 ₽<small>в месяц</small></span>
+        </div>
+        <ul>
+          <li><span><b>Ключ на выбранный сервер</b> — Нидерланды или США, на тарифах дольше — несколько серверов</span></li>
+          <li><span><b>Наше приложение HOSHIMOTO VPN</b> для Windows, Android и Android TV</span></li>
+          <li><span>AmneziaVPN и AmneziaWG — для iPhone, Mac и роутеров</span></li>
+          <li><span>Протокол AmneziaWG — быстрый и устойчивый к блокировкам</span></li>
+        </ul>
+      </article>
     </div>
     <div class="dl" id="download">
       <div class="card hud dl-box reveal" data-tone="win">
@@ -963,27 +1029,37 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
         </div>
         <div class="dlp" data-dlp="win" role="tabpanel">
           <div class="dlp-row"><a class="btn btn-lg dlp-btn" href="downloads/HoshimotoVPN-1.2.6.exe" download><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Скачать</a><span class="dlp-meta">HOSHIMOTO VPN v1.2.6 · для Windows 10, 11 (64 bit) · 63 МБ</span></div>
+          <span class="dlp-or">или Happ</span>
+          <div class="dlp-row"><a class="btn btn-lg dlp-btn dlp-happ" href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Happ</a><span class="dlp-meta">для подписки Happ · Windows 10, 11</span></div>
           <p class="dlp-hint">Появится окно «Windows защитила ваш компьютер» — нажмите <b>«Подробнее» → «Выполнить в любом случае»</b>.</p>
         </div>
         <div class="dlp" data-dlp="mac" role="tabpanel" hidden>
           <div class="dlp-row"><a class="btn btn-lg dlp-btn" href="https://amnezia.org/downloads" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Скачать</a><span class="dlp-meta">AmneziaVPN · для macOS</span></div>
+          <span class="dlp-or">или Happ</span>
+          <div class="dlp-row"><a class="btn btn-lg dlp-btn dlp-happ" href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Happ</a><span class="dlp-meta">для подписки Happ · Mac на Apple M1 и новее · App Store</span></div>
           <p class="dlp-hint">Файл — на официальном сайте Amnezia. Не открывается из России — возьмите с <a href="https://github.com/amnezia-vpn/amnezia-client/releases/latest" target="_blank" rel="noopener">GitHub</a>.</p>
         </div>
         <div class="dlp" data-dlp="ios" role="tabpanel" hidden>
           <div class="dlp-row"><a class="btn btn-lg dlp-btn" href="https://apps.apple.com/app/id1600529900" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>AmneziaVPN</a><a class="btn btn-lg dlp-btn dlp-alt" href="https://apps.apple.com/app/id6478942365" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>AmneziaWG</a></div>
-          <p class="dlp-meta dlp-center">Два приложения на выбор, оба бесплатные · App Store</p>
+          <p class="dlp-meta dlp-center">Для ключа AmneziaVPN — два приложения на выбор, оба бесплатные</p>
+          <span class="dlp-or">или Happ</span>
+          <div class="dlp-row"><a class="btn btn-lg dlp-btn dlp-happ" href="https://apps.apple.com/ru/app/happ-proxy-utility/id6783623643" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Happ</a><a class="btn btn-lg dlp-btn dlp-happ dlp-alt" href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Happ (другие страны)</a><span class="dlp-meta">для подписки Happ · App Store России</span></div>
           <p class="dlp-hint"><b>AmneziaVPN</b> (iOS 16+) — вставьте ключ из бота. <b>AmneziaWG</b> (iOS 15+) — ключ <code>vpn://</code> не принимает: в боте откройте «Страницу ключа» → вкладка «AmneziaWG» → скачайте файл или отсканируйте QR. Нет в App Store вашей страны? — <a href="guide.html#appstore">инструкция с картинками</a>.</p>
         </div>
         <div class="dlp" data-dlp="android" role="tabpanel" hidden>
           <div class="dlp-row"><a class="btn btn-lg dlp-btn" href="downloads/HOSHIMOTO-VPN-1.2.2.apk" download><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Скачать</a><span class="dlp-meta">HOSHIMOTO VPN v1.2.2 · для Android · 5,1 МБ</span></div>
+          <span class="dlp-or">или Happ</span>
+          <div class="dlp-row"><a class="btn btn-lg dlp-btn dlp-happ" href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Happ</a><span class="dlp-meta">для подписки Happ · файл APK, или найдите Happ в Google Play</span></div>
           <p class="dlp-hint">Откройте скачанный файл и разрешите установку из этого источника, когда телефон спросит.</p>
         </div>
         <div class="dlp" data-dlp="tv" role="tabpanel" hidden>
           <div class="dlp-row"><a class="btn btn-lg dlp-btn" href="downloads/HOSHIMOTO-VPN-1.2.2.apk" download><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Скачать</a><span class="dlp-meta">HOSHIMOTO VPN v1.2.2 · Android TV и ТВ-приставки</span></div>
+          <span class="dlp-or">или Happ</span>
+          <div class="dlp-row"><a class="btn btn-lg dlp-btn dlp-happ" href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Happ</a><a class="btn btn-lg dlp-btn dlp-happ dlp-alt" href="https://apps.apple.com/us/app/happ-proxy-utility-for-tv/id6748297274" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.6h6.6L9.5 22 20 9.8h-6.7z"/></svg>Apple TV</a><span class="dlp-meta">Android TV — файл APK</span></div>
           <p class="dlp-hint">Скачайте файл на приставке через браузер или перенесите с флешки и откройте в файловом менеджере.</p>
         </div>
       </div>
-      <a class="dl-more" href="guide.html">Как установить и добавить ключ — подробная инструкция<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
+      <a class="dl-more" href="guide.html">Как установить, добавить подписку Happ или ключ AmneziaVPN — инструкция<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
     </div>
 
     <div class="shots" id="screens">
@@ -1007,6 +1083,7 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
   <section class="block" id="servers">
     <div class="eyebrow"><b>03</b> / Сеть</div>
     <h2>Серверы</h2>
+    <div class="happ-strip reveal"><span class="flags" aria-hidden="true">🇫🇮🇳🇱🇺🇸</span><span><b>Подписка Happ</b> — Финляндия, Нидерланды и США сразу, страна переключается в приложении. Ниже — серверы AmneziaVPN в реальном времени.</span></div>
     <div class="server-cards">
       <article class="card hud server-load reveal" data-server="5">
         <div class="sl-grid">
@@ -1153,7 +1230,53 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
   <section class="block" id="pricing">
     <div class="eyebrow"><b>04</b> / Тарифы</div>
     <h2>Выберите тариф</h2>
-    <div class="plans">
+    <div class="plan-switch" role="group" aria-label="Приложение">
+      <button type="button" data-app="happ" aria-pressed="true">⚡️ Happ<small>от 190 ₽</small></button>
+      <button type="button" data-app="awg" aria-pressed="false">🛡 AmneziaVPN<small>от 290 ₽</small></button>
+    </div>
+    <div class="plans" data-plans="happ">
+      <article class="card hud plan stat-card reveal" data-tone="cyan">
+        <span class="plan-shine" aria-hidden="true"></span>
+        <div class="plan-head"><span class="label">Пробный</span><span class="badge b-cyan"><i></i>Бесплатно</span></div>
+        <div class="plan-top">
+          <div><div class="price">7 дней</div><div class="note">без карты и оплаты</div></div>
+          <svg class="plan-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="soft" x="7" y="19" width="34" height="22" rx="3" fill="currentColor" stroke="none"/><rect x="7" y="19" width="34" height="22" rx="3"/><rect x="4" y="13" width="40" height="7" rx="2"/><path d="M24 13v28"/><path d="M24 13c-3-6-11-7-11-2 0 3 6 2 11 2zM24 13c3-6 11-7 11-2 0 3-6 2-11 2z"/></svg>
+        </div>
+        <ul><li>Все страны — Финляндия, Нидерланды, США</li><li>Без ограничения трафика</li><li>Подписка сразу в Telegram</li><li class="dev">2 устройства</li></ul>
+        <a class="btn btn-tone" href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">Начать бесплатно</a>
+      </article>
+      <article class="card hud plan stat-card featured reveal" data-tone="red">
+        <span class="plan-shine" aria-hidden="true"></span>
+        <div class="plan-head"><span class="label">1 месяц</span><span class="badge b-red"><i></i>Популярный</span></div>
+        <div class="plan-top">
+          <div><div class="price">190 ₽<span class="per">/ месяц</span></div><div class="note">оплата и продление через менеджера</div></div>
+          <svg class="plan-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="soft" d="M27 4 9 27h13l-3 17 20-25H26z" fill="currentColor" stroke="none"/><path d="M27 4 9 27h13l-3 17 20-25H26z"/></svg>
+        </div>
+        <ul><li>Все страны в одной подписке</li><li>Страна переключается в приложении Happ</li><li>Без ограничения трафика</li><li>Поддержка в Telegram</li><li class="dev">1 подписка — 2 устройства</li></ul>
+        <a class="btn btn-primary" href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Подключить</a>
+      </article>
+      <article class="card hud plan stat-card reveal" data-tone="green">
+        <span class="plan-shine" aria-hidden="true"></span>
+        <div class="plan-head"><span class="label">3 месяца</span><span class="badge b-green"><i></i>Выгоднее</span></div>
+        <div class="plan-top">
+          <div><div class="price">500 ₽<span class="per">/ 3 месяца</span></div><div class="note">≈ 167 ₽ в месяц · <s>570 ₽</s></div></div>
+          <svg class="plan-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="soft" x="6" y="10" width="36" height="32" rx="4" fill="currentColor" stroke="none"/><rect x="6" y="10" width="36" height="32" rx="4"/><path d="M6 19h36M16 5v9M32 5v9"/><path d="M15 27h4M22 27h4M29 27h4M15 34h4M22 34h4"/></svg>
+        </div>
+        <ul><li>Все страны в одной подписке</li><li>Страна переключается в приложении Happ</li><li>Без ограничения трафика</li><li>Поддержка в Telegram</li><li class="dev">1 подписка — 2 устройства</li></ul>
+        <a class="btn btn-tone" href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Подключить</a>
+      </article>
+      <article class="card hud plan stat-card reveal" data-tone="amber">
+        <span class="plan-shine" aria-hidden="true"></span>
+        <div class="plan-head"><span class="label">1 год</span><span class="badge b-amber"><i></i>Самый выгодный</span></div>
+        <div class="plan-top">
+          <div><div class="price">1 990 ₽<span class="per">/ год</span></div><div class="note">≈ 166 ₽ в месяц · <s>2 280 ₽</s></div></div>
+          <svg class="plan-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="soft" d="M7 15l9 9 8-13 8 13 9-9-4 22H11z" fill="currentColor" stroke="none"/><path d="M7 15l9 9 8-13 8 13 9-9-4 22H11z"/><path d="M11 42h26"/><circle cx="24" cy="10" r="2"/><circle cx="6" cy="14" r="2"/><circle cx="42" cy="14" r="2"/></svg>
+        </div>
+        <ul><li>Все страны в одной подписке</li><li>Новые страны добавятся сами</li><li>Без ограничения трафика</li><li>Поддержка в Telegram</li><li class="dev">1 подписка — 2 устройства</li></ul>
+        <a class="btn btn-tone" href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Подключить</a>
+      </article>
+    </div>
+    <div class="plans" data-plans="awg" hidden>
       <article class="card hud plan stat-card reveal" data-tone="cyan">
         <span class="plan-shine" aria-hidden="true"></span>
         <div class="plan-head"><span class="label">Пробный</span><span class="badge b-cyan"><i></i>Бесплатно</span></div>
@@ -1256,11 +1379,11 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
     <div class="card faq reveal">
       <details id="faq-1">
         <summary><span class="q">01</span>Что такое HOSHIMOTO VPN?</summary>
-        <p>Это VPN на протоколе AmneziaWG: он шифрует подключение и маскирует его под обычный трафик, поэтому работает даже там, где VPN блокируют. Серверы — в Нидерландах и США, скоро добавится Германия. Сервер вы выбираете сами, прямо в боте.</p>
+        <p>Это VPN, который шифрует подключение и маскирует его под обычный трафик, поэтому работает даже там, где VPN блокируют. Подключиться можно двумя способами: подпиской <b>Happ</b> (протокол VLESS Reality, все страны сразу — Финляндия, Нидерланды, США) или ключом <b>AmneziaVPN</b> (протокол AmneziaWG, сервер на выбор). Что удобнее — выбираете прямо в боте.</p>
       </details>
       <details id="faq-2">
         <summary><span class="q">02</span>Как начать пользоваться?</summary>
-        <p>Откройте <a href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">нашего бота</a> в Telegram, нажмите «Получить ключ» и выберите сервер. Бот пришлёт ключ — вставьте его в приложение <a href="https://amnezia.org/downloads" target="_blank" rel="noopener">AmneziaVPN</a> через «+». Всё занимает около минуты.</p>
+        <p>Откройте <a href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">нашего бота</a> в Telegram, нажмите «Получить ключ» и выберите приложение. <b>Happ:</b> бот пришлёт ссылку — откройте её и нажмите «Добавить подписку». <b>AmneziaVPN:</b> выберите сервер, бот пришлёт ключ — вставьте его в приложение через «+». Всё занимает около минуты.</p>
       </details>
       <details id="faq-3">
         <summary><span class="q">03</span>Это правда бесплатно?</summary>
@@ -1268,11 +1391,11 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       </details>
       <details id="faq-4">
         <summary><span class="q">04</span>На каких устройствах работает?</summary>
-        <p>На iPhone и iPad, Android, Windows и macOS — через приложение AmneziaVPN. Для роутеров есть файл настроек AmneziaWG. Как установить на каждое устройство — в <a href="guide.html#install">инструкции</a>.</p>
+        <p>На iPhone и iPad, Android, Windows, macOS и телевизорах. Happ есть в App Store и Google Play, для Windows и Android TV — файлы в разделе «<a href="#download">Скачайте приложение</a>». Для ключа AmneziaVPN — приложения AmneziaVPN, AmneziaWG или наше HOSHIMOTO VPN, для роутеров есть файл настроек. Подробно — в <a href="guide.html#install">инструкции</a>.</p>
       </details>
       <details id="faq-5">
         <summary><span class="q">05</span>Сколько устройств можно подключить?</summary>
-        <p>Один ключ — для одного устройства: если включить его на двух сразу, они будут мешать друг другу. Для второго устройства напишите нам — выдадим ещё ключ. На тарифе «1 месяц» два ключа стоят 390 ₽ вместо 580 ₽, а годовой тариф сразу рассчитан на 3 устройства.</p>
+        <p><b>Happ:</b> одна подписка — 2 устройства, например телефон и ноутбук. <b>AmneziaVPN:</b> один ключ — одно устройство; для второго выдадим ещё ключ — на тарифе «1 месяц» два ключа стоят 390 ₽ вместо 580 ₽, а годовой тариф сразу рассчитан на 3 устройства.</p>
       </details>
       <details id="faq-6">
         <summary><span class="q">06</span>Нужен ли номер телефона?</summary>
@@ -1280,7 +1403,11 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       </details>
       <details id="faq-7">
         <summary><span class="q">07</span>Что делать, если не подключается?</summary>
-        <p>Обновите приложение AmneziaVPN до последней версии и попробуйте снова — подробнее в <a href="guide.html#help">инструкции</a>. Не помогло — напишите в <a href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">поддержку</a>, разберёмся.</p>
+        <p>Обновите приложение (Happ или AmneziaVPN) до последней версии. В Happ нажмите «Обновить подписку» и выберите другую страну. Подробнее — в <a href="guide.html#help">инструкции</a>. Не помогло — напишите в <a href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">поддержку</a> или в бот «🛟 Помощь», разберёмся.</p>
+      </details>
+      <details id="faq-8">
+        <summary><span class="q">08</span>Что выбрать: Happ или AmneziaVPN?</summary>
+        <p><b>Happ</b> — если хотите проще и дешевле: от 190 ₽ в месяц, все страны в одной подписке, 2 устройства, приложение есть в App Store и Google Play без смены региона. <b>AmneziaVPN</b> — если нужен ключ на конкретный сервер, наше приложение для ПК и Android TV или настройка на роутере. Попробовать можно оба — 7 дней бесплатно.</p>
       </details>
     </div>
   </section>
@@ -1347,7 +1474,9 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       { tag: 'Главная', t: 'Скачать приложение', d: 'Windows, macOS, iPhone, Android, Android TV', k: 'скачать установить приложение exe apk windows android iphone mac телевизор tv', u: home + '#download' },
       { tag: 'Главная', t: 'Как выглядит приложение', d: 'Скриншоты HOSHIMOTO VPN и AmneziaVPN', k: 'скриншот экран приложение вид', u: home + '#screens' },
       { tag: 'Главная', t: 'Серверы', d: 'Нидерланды, США, скоро Германия — нагрузка и скорость', k: 'сервер страна нидерланды сша германия скорость нагрузка', u: home + '#servers' },
-      { tag: 'Тарифы', t: 'Тарифы и цены', d: 'Пробный 7 дней · 1 месяц 290 ₽ · 3 месяца 790 ₽ · 1 год 2 990 ₽', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
+      { tag: 'Главная', t: 'Happ — все страны в одной подписке', d: 'Финляндия, Нидерланды, США · 2 устройства · от 190 ₽ в месяц', k: 'happ хапп подписка vless reality xray все страны финляндия два устройства', u: home + '#how' },
+      { tag: 'Тарифы', t: 'Тарифы Happ', d: '1 месяц 190 ₽ · 3 месяца 500 ₽ · 1 год 1 990 ₽ · 2 устройства', k: 'happ цена тариф подписка стоимость дешево', u: home + '#pricing' },
+      { tag: 'Тарифы', t: 'Тарифы AmneziaVPN', d: 'Пробный 7 дней · 1 месяц 290 ₽ · 3 месяца 790 ₽ · 1 год 2 990 ₽', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
       { tag: 'Тарифы', t: '3 месяца — 2 сервера', d: '790 ₽ за 3 месяца (≈ 263 ₽ в месяц), две страны на выбор', k: 'три месяца квартал два сервера', u: home + '#pricing' },
       { tag: 'Тарифы', t: '2 ключа на месяц — 390 ₽', d: 'Скидка 190 ₽ на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
       { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '2 990 ₽ в год (≈ 249 ₽ в месяц), все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
@@ -1361,7 +1490,7 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       { tag: 'Инструкция', t: 'Не подключается?', d: 'Неверный ключ, сайты не открываются, перестало работать', k: 'ошибка не работает не подключается проблема помощь', u: guide + '#help' },
     ];
     // вопросы FAQ — с главной страницы (на инструкции — заранее известный список)
-    var FAQ = ['Что такое HOSHIMOTO VPN?', 'Как начать пользоваться?', 'Это правда бесплатно?', 'На каких устройствах работает?', 'Сколько устройств можно подключить?', 'Нужен ли номер телефона?', 'Что делать, если не подключается?'];
+    var FAQ = ['Что выбрать: Happ или AmneziaVPN?', 'Что такое HOSHIMOTO VPN?', 'Как начать пользоваться?', 'Это правда бесплатно?', 'На каких устройствах работает?', 'Сколько устройств можно подключить?', 'Нужен ли номер телефона?', 'Что делать, если не подключается?'];
     FAQ.forEach(function (q, i) {
       var el = !onGuide && document.querySelector('#faq-' + (i + 1) + ' p');
       ITEMS.push({ tag: 'Вопрос', t: q, d: el ? el.textContent.trim().slice(0, 140) : '', k: 'вопрос faq', u: home + '#faq-' + (i + 1) });
@@ -1675,6 +1804,24 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       });
     });
     update();
+  })();
+</script>
+
+<script>
+  // тарифы: Happ / AmneziaVPN
+  (function () {
+    var sw = document.querySelector('.plan-switch');
+    if (!sw) return;
+    sw.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-app]');
+      if (!b) return;
+      sw.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      document.querySelectorAll('.plans[data-plans]').forEach(function (p) {
+        var on = p.dataset.plans === b.dataset.app;
+        p.hidden = !on;
+        if (on) p.querySelectorAll('.reveal').forEach(function (r) { r.classList.add('in'); });
+      });
+    });
   })();
 </script>
 </body>

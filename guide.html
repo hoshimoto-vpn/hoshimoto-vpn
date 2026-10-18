@@ -829,6 +829,44 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
   .earn-cta .btn-gold { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { nav.links a.nav-earn::before { animation: none; } }
+
+/* ---------- Happ: два способа подключения, Happ в загрузках и тарифах ---------- */
+.apps2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.app-card { --tone-rgb: 34, 211, 238; --hud: rgba(var(--tone-rgb), 0.45); padding: 26px; border-color: rgba(var(--tone-rgb), 0.24);
+  background: radial-gradient(80% 110% at 100% 0%, rgba(var(--tone-rgb), 0.1), transparent 60%), var(--card-bg); }
+.app-card[data-tone='red'] { --tone-rgb: 255, 46, 77; }
+.app-card .app-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.app-card .app-ico { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: rgb(var(--tone-rgb));
+  border: 1px solid rgba(var(--tone-rgb), 0.45); background: rgba(var(--tone-rgb), 0.1); box-shadow: 0 0 18px -6px rgba(var(--tone-rgb), 0.8); }
+.app-card .app-ico svg { width: 22px; height: 22px; }
+.app-card h3 { margin: 0; font: 600 22px var(--font-head); }
+.app-card h3 small { display: block; font: 400 12.5px var(--font-body); color: var(--text-3); margin-top: 2px; }
+.app-card .app-price { margin-left: auto; text-align: right; font: 600 22px var(--font-head); color: rgb(var(--tone-rgb)); text-shadow: 0 0 18px rgba(var(--tone-rgb), 0.45); white-space: nowrap; }
+.app-card .app-price small { display: block; font: 400 12px var(--font-body); color: var(--text-3); text-shadow: none; }
+.app-card ul { list-style: none; margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(var(--tone-rgb), 0.16); display: flex; flex-direction: column; gap: 9px; color: var(--text-2); font-size: 14px; }
+.app-card li { display: flex; gap: 10px; align-items: baseline; }
+.app-card li::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 2px; background: rgb(var(--tone-rgb)); box-shadow: 0 0 8px rgb(var(--tone-rgb)); transform: translateY(-2px); }
+.app-card li b { color: var(--text); font-weight: 500; }
+.dlp-btn.dlp-happ { --tone-rgb: 34, 211, 238; }
+.dlp-or { margin: -4px 0 -2px; font: 400 11px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.happ-strip { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: -12px 0 22px; padding: 12px 16px; border-radius: 12px;
+  border: 1px solid rgba(34, 211, 238, 0.28); background: rgba(34, 211, 238, 0.05); color: var(--text-2); font-size: 14px; }
+.happ-strip b { color: var(--text); font-weight: 500; }
+.happ-strip .flags { font-size: 18px; letter-spacing: 4px; }
+.plan-switch { display: inline-flex; gap: 4px; padding: 4px; margin: -10px 0 22px; border-radius: 12px; border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.02); }
+.plan-switch button { padding: 10px 18px; border-radius: 9px; border: 1px solid transparent; background: none; color: var(--text-2); font: 500 14.5px var(--font-body); cursor: pointer; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+.plan-switch button small { color: var(--text-3); font-weight: 400; margin-left: 6px; }
+.plan-switch button:hover { color: var(--text); }
+.plan-switch button[aria-pressed='true'] { color: #fff; border-color: rgba(34, 211, 238, 0.7); background: rgba(34, 211, 238, 0.12); box-shadow: 0 0 16px -6px rgba(34, 211, 238, 0.9); }
+.plan-switch button[data-app='awg'][aria-pressed='true'] { border-color: rgba(255, 46, 77, 0.75); background: rgba(255, 46, 77, 0.12); box-shadow: 0 0 16px -6px rgba(255, 46, 77, 0.9); }
+.plans[hidden] { display: none; }
+@media (max-width: 860px) { .apps2 { grid-template-columns: minmax(0, 1fr); max-width: 640px; } }
+@media (max-width: 560px) {
+  .app-card { padding: 20px; }
+  .plan-switch { display: flex; }
+  .plan-switch button { flex: 1; padding: 10px 8px; }
+  .plan-switch button small { display: block; margin: 2px 0 0; }
+}
 </style>
 <style>
 /* ---------- страница-инструкция ---------- */
@@ -841,6 +879,10 @@ nav.links a[aria-current='page'] { color: var(--text); background: rgba(255, 46,
 .guide .toc a { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px 0 6px; border-radius: 10px; border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.02); color: var(--text-2); font-size: 14px; transition: color 0.15s, border-color 0.15s, box-shadow 0.15s; }
 .toc a span { display: inline-grid; place-items: center; min-width: 28px; height: 28px; border-radius: 7px; font: 500 11px var(--font-mono); color: var(--red); background: rgba(255, 46, 77, 0.1); border: 1px solid rgba(255, 46, 77, 0.3); }
 .guide .toc a:hover { color: var(--text); border-color: rgba(255, 46, 77, 0.45); box-shadow: 0 0 16px -6px rgba(255, 46, 77, 0.7); }
+.toc a.toc-happ span { color: var(--cyan); background: rgba(34, 211, 238, 0.1); border-color: rgba(34, 211, 238, 0.35); }
+.happ-card { padding: 26px; --hud: rgba(34, 211, 238, 0.45); border-color: rgba(34, 211, 238, 0.24); }
+.happ-card .row { margin-top: 12px; }
+.g-sub { margin: -14px 0 18px; }
 .toc a.toc-warn span { color: var(--amber); background: rgba(255, 176, 32, 0.1); border-color: rgba(255, 176, 32, 0.35); }
 .sub { color: var(--text-2); max-width: 720px; margin: -14px 0 24px; }
 .hint { color: var(--text-3); font-size: 13.5px; margin: 14px 0 0; }
@@ -977,6 +1019,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       <p class="lead">Три шага — около трёх минут. Ниже — как установить приложение на любое устройство и что делать, если его нет в App Store вашей страны.</p>
       <nav class="toc" aria-label="Шаги инструкции">
         <a href="#key"><span>01</span>Получить ключ</a>
+        <a href="#happ" class="toc-happ"><span>⚡</span>Через Happ</a>
         <a href="#install"><span>02</span>Установить приложение</a>
         <a href="#connect"><span>03</span>Добавить ключ</a>
         <a href="#appstore" class="toc-warn"><span>!</span>Нет в App Store</a>
@@ -997,19 +1040,37 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
         </a>
         <div class="krow reveal">
           <span class="n">2</span>
-          <div><b>Нажмите «Получить ключ» и выберите сервер</b><small>номер телефона не нужен — одно нажатие, затем страна: Нидерланды или США (один бесплатный ключ на Telegram-аккаунт)</small></div>
+          <div><b>Нажмите «Получить ключ» и выберите приложение</b><small>⚡️ <b>Happ</b> — все страны в одной подписке (как подключить — <a href="#happ">ниже</a>), или 🛡 <b>AmneziaVPN</b> — затем сервер: Нидерланды или США. Номер телефона не нужен, один бесплатный ключ на Telegram-аккаунт</small></div>
         </div>
         <div class="krow reveal">
           <span class="n">3</span>
-          <div><b>Бот пришлёт ключ</b><small>длинная строка, начинается с <code>vpn://</code>. Нажмите на неё — ключ скопируется</small></div>
+          <div><b>Бот пришлёт ключ (для AmneziaVPN)</b><small>длинная строка, начинается с <code>vpn://</code>. Нажмите на неё — ключ скопируется</small></div>
         </div>
+      </div>
+    </section>
+
+    <!-- Happ -->
+    <section class="block" id="happ">
+      <div class="eyebrow"><b>⚡</b> / Happ</div>
+      <h2>Подключение через Happ</h2>
+      <p class="lead g-sub">Если в боте вы выбрали <b>Happ</b>, бот пришлёт ссылку-подписку. В ней сразу все страны — Финляндия, Нидерланды, США, и её можно добавить на <b>2 устройства</b>.</p>
+      <div class="card hud os-card reveal happ-card">
+        <ol class="g-list">
+          <li><b>Установите Happ</b> — кнопки ниже. На iPhone есть в российском App Store, менять регион не нужно.</li>
+          <li>В сообщении бота нажмите <b>«📲 Открыть подписку»</b> — откроется страница с кнопками для вашего устройства — и нажмите <b>«Добавить подписку»</b> / «Add to Happ».</li>
+          <li>Или по-другому: нажмите на ссылку в сообщении бота, чтобы скопировать, откройте Happ → <b>«+»</b> → <b>«Вставить из буфера»</b>.</li>
+          <li>В Happ выберите страну и нажмите большую кнопку подключения. Разрешите добавить VPN, когда телефон спросит.</li>
+        </ol>
+        <div class="row"><a class="btn btn-primary" href="https://apps.apple.com/ru/app/happ-proxy-utility/id6783623643" target="_blank" rel="noopener">iPhone и iPad — App Store (Россия)</a><a class="btn" href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" rel="noopener">App Store — другие страны и Mac</a></div>
+        <div class="row"><a class="btn" href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" target="_blank" rel="noopener">Android и Android TV — файл APK</a><a class="btn" href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" rel="noopener">Windows</a><a class="btn" href="https://apps.apple.com/us/app/happ-proxy-utility-for-tv/id6748297274" target="_blank" rel="noopener">Apple TV</a></div>
+        <p class="hint">На Android Happ также есть в Google Play — найдите «Happ» в поиске. Страна переключается в самом приложении, отдельный ключ на каждую страну не нужен. Не подключается — в Happ нажмите «Обновить подписку» и выберите другую страну.</p>
       </div>
     </section>
 
     <!-- 02 · приложение -->
     <section class="block" id="install">
       <div class="eyebrow"><b>02</b> / Приложение</div>
-      <h2>Установите приложение</h2>
+      <h2>Установите приложение AmneziaVPN</h2>
       <div class="card hud os-card reveal">
         <div class="os-tabs" role="tablist" aria-label="Устройство">
           <button role="tab" data-os="ios" aria-selected="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.2 1-4 2.5-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-4ZM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg><span>iPhone / iPad</span></button>
@@ -1089,7 +1150,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
     <!-- 03 · подключение -->
     <section class="block" id="connect">
       <div class="eyebrow"><b>03</b> / Подключение</div>
-      <h2>Добавьте ключ и подключитесь</h2>
+      <h2>Добавьте ключ AmneziaVPN и подключитесь</h2>
       <div class="g-steps">
         <article class="card hud stat-card g-step reveal" data-tone="cyan">
           <span class="g-num">1</span>
