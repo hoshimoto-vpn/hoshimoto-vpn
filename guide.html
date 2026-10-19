@@ -930,7 +930,7 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
 .hoshi-q { position: relative; margin: 0 22px 8px 0; padding: 6px 10px; border-radius: 10px 10px 3px 10px; justify-self: end; width: fit-content; max-width: 100%; margin-left: auto;
   background: rgba(var(--hb), 0.14); border: 1px solid rgba(var(--hb), 0.3); color: #d9f8ff; font-size: 13px; line-height: 1.35; animation: hoshi-chip 0.35s cubic-bezier(0.2, 1, 0.3, 1) both; }
 .hoshi-q[hidden] { display: none; }
-.hoshi-text { position: relative; margin: 0 22px 10px 0; min-height: 2.9em; font-size: 14px; line-height: 1.45; color: var(--text); white-space: pre-line; }
+.hoshi-text { position: relative; margin: 0 52px 10px 0; min-height: 2.9em; font-size: 14px; line-height: 1.45; color: var(--text); white-space: pre-line; }
 .hoshi-chips { position: relative; display: flex; flex-direction: column; gap: 6px; }
 .hoshi-chip { display: block; padding: 8px 11px; border-radius: 10px; border: 1px solid rgba(var(--hb), 0.22); background: rgba(var(--hb), 0.05); color: #c9d8e6;
   font: 500 13px var(--font-body); text-align: left; text-decoration: none; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.15s;
@@ -949,6 +949,8 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
 .hoshi-ask button:hover { transform: translateY(-1px); filter: brightness(1.08); }
 .hoshi-close { position: absolute; z-index: 1; top: 7px; right: 7px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; color: #8fa4b8; font-size: 20px; line-height: 1; cursor: pointer; }
 .hoshi-close:hover { color: #fff; background: rgba(var(--hb), 0.12); }
+.hoshi-sound { position: absolute; z-index: 1; top: 7px; right: 38px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; font-size: 14px; line-height: 1; cursor: pointer; opacity: 0.75; transition: opacity 0.15s, background 0.15s; }
+.hoshi-sound:hover { opacity: 1; background: rgba(var(--hb), 0.12); }
 .hoshi-hide { position: relative; margin-top: 8px; padding: 0; border: 0; background: none; color: #7d91a5; font-size: 11.5px; text-decoration: underline; cursor: pointer; }
 .hoshi-min .hoshi-bubble { display: none; }
 /* «Нужна помощь?» над свёрнутым помощником */
@@ -1691,6 +1693,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
 <div class="hoshi" id="hoshi" aria-live="polite">
   <div class="hoshi-bubble" hidden>
     <button class="hoshi-close" type="button" aria-label="Свернуть подсказки">×</button>
+    <button class="hoshi-sound" type="button" aria-label="Выключить звук" title="Выключить звук">🔊</button>
     <p class="hoshi-q" hidden></p>
     <p class="hoshi-text"></p>
     <div class="hoshi-chips"></div>

@@ -17,6 +17,7 @@ function start() {
   let closing = 0;
   function minimize() {
     if (root.classList.contains('hoshi-min') || closing) return;
+    if (typeof hush === 'function') hush();
     if (reduceUI) return void root.classList.add('hoshi-min');
     root.classList.add('hoshi-closing');
     closing = setTimeout(() => {
@@ -75,15 +76,17 @@ function start() {
       chipsEl.innerHTML = '';
       textEl.innerHTML = '<span class="hoshi-dots"><i></i><i></i><i></i></span><span class="hoshi-typing">Хоши печатает…</span>';
       bot.work(think);
+      sfx('open');
       thinking = setTimeout(() => say(text, chips, { emotion, anim, stay, q }), think);
       return;
     }
+    const spoken = typeof speak === 'function' && speak(text);
     let i = 0;
     typing = setInterval(() => {
       textEl.textContent = text.slice(0, ++i);
       if (i >= text.length) {
         clearInterval(typing);
-        if (bot && anim === 'Talk') bot.play('Idle');
+        if (bot && anim === 'Talk' && !spoken) bot.play('Idle');
       }
     }, 16);
     chipsEl.innerHTML = '';
@@ -132,6 +135,12 @@ function start() {
       ];
   const here = SECTIONS.filter((x) => x.sel && document.querySelector(x.sel));
 
+  const APPS_TEXT = 'AmneziaVPN — максимальная скорость и стабильность (протокол на базе WireGuard), от 290 ₽. Happ — все страны в одной подписке и 2 устройства, от 190 ₽. Попробовать можно оба.';
+  const PRICE_TEXT = 'Переключатель сверху: Happ или AmneziaVPN. Чем длиннее срок — тем дешевле месяц.';
+  const TOUR_END = 'Вот и весь сайт! Попробуете бесплатно? Ключ придёт в Telegram за минуту.';
+  const FALLBACK = 'Пока не знаю ответа на это 🤔 Спросите по-другому — например, «сколько стоит» или «как подключить на iPhone». Или напишите в поддержку — там ответят.';
+  const NAV_PROMPT = onGuide ? 'Разделы инструкции — куда перейти?' : 'Вот что есть на сайте. Куда перейти?';
+  const tourText = (x, n) => `${n + 1} из ${here.length} · ${x.name.replace(/^\S+\s/, '')}. ${x.text}`;
   const MENU = () =>
     onGuide
       ? [
@@ -145,8 +154,8 @@ function start() {
           { label: '🎁 Попробовать 7 дней бесплатно', main: true, href: BOT, go: () => cheer() },
           { label: '🗺 Экскурсия по сайту — 30 секунд', go: () => tour(0) },
           { label: '🧭 Где что на сайте', go: () => navMenu() },
-          { label: '⚡️ Happ или AmneziaVPN?', go: () => guide('#how', 'apps', 'AmneziaVPN — максимальная скорость и стабильность (протокол на базе WireGuard), от 290 ₽. Happ — все страны в одной подписке и 2 устройства, от 190 ₽. Попробовать можно оба.') },
-          { label: '💳 Цены', go: () => guide('#pricing', 'price', 'Переключатель сверху: Happ или AmneziaVPN. Чем длиннее срок — тем дешевле месяц.') },
+          { label: '⚡️ Happ или AmneziaVPN?', go: () => guide('#how', 'apps', APPS_TEXT) },
+          { label: '💳 Цены', go: () => guide('#pricing', 'price', PRICE_TEXT) },
           { label: '🔎 Найти на сайте', go: () => search() },
         ];
   function menu(text = 'Чем помочь?', think = 0) {
@@ -155,7 +164,7 @@ function start() {
   /** Все разделы страницы — кнопками: нажали — Хоши ведёт туда и показывает. */
   function navMenu() {
     say(
-      onGuide ? 'Разделы инструкции — куда перейти?' : 'Вот что есть на сайте. Куда перейти?',
+      NAV_PROMPT,
       [
         ...SECTIONS.map((x) => (x.href ? { label: x.name, href: x.href } : { label: x.name, go: () => guide(x.sel, x.sel, x.text, [{ label: '🧭 Другие разделы', go: () => navMenu() }]) })),
         { label: '« Меню', go: () => menu() },
@@ -166,14 +175,14 @@ function start() {
   /** Экскурсия: по разделам по очереди, с подсветкой. */
   function tour(n) {
     if (n >= here.length) {
-      say('Вот и весь сайт! Попробуете бесплатно? Ключ придёт в Telegram за минуту.', [
+      say(TOUR_END, [
         { label: '🎁 Попробовать 7 дней бесплатно', main: true, href: BOT, go: () => cheer() },
         { label: '« Меню', go: () => menu() },
       ], { emotion: 'happy', anim: 'Wave', stay: true });
       return;
     }
     const x = here[n];
-    guide(x.sel, x.sel, `${n + 1} из ${here.length} · ${x.name.replace(/^\S+\s/, '')}. ${x.text}`, [
+    guide(x.sel, x.sel, tourText(x, n), [
       { label: n + 1 < here.length ? 'Дальше →' : 'Готово →', main: true, go: () => tour(n + 1) },
       ...(n > 0 ? [{ label: '← Назад', go: () => tour(n - 1) }] : []),
       { label: 'Закончить', go: () => menu() },
@@ -188,7 +197,7 @@ function start() {
   }
   // ---------- ответы на вопросы о сайте ----------
   // раздел страницы: здесь — прокрутить и показать, на другой странице — перейти
-  const goTo = (sel, text) => () => (document.querySelector(sel) ? guide(sel, sel, text) : (location.href = 'index.html' + sel));
+  const goTo = (sel, text) => Object.assign(() => (document.querySelector(sel) ? guide(sel, sel, text) : (location.href = 'index.html' + sel)), { say: text });
   const SUPPORT = { label: '✉️ Поддержка в Telegram', href: 'https://t.me/Hoshimoto_03' };
   const TRY = { label: '🎁 Попробовать 7 дней бесплатно', main: true, href: BOT, go: () => cheer() };
   const KB = [
@@ -284,7 +293,7 @@ function start() {
     const hit = match(KB, q) || match(SMALL, q);
     if (hit) say(hit.a, [...(hit.c ? hit.c() : []), { label: '« Меню', go: () => menu() }], { emotion: hit.emo || 'happy', anim: 'Talk', stay: true, q: text, think: 1100 });
     else
-      say('Пока не знаю ответа на это 🤔 Спросите по-другому — например, «сколько стоит» или «как подключить на iPhone». Или напишите в поддержку — там ответят.', [SUPPORT, { label: '❓ Частые вопросы', go: goTo('#faq', 'Ответы на частые вопросы.') }, { label: '« Меню', go: () => menu() }], { emotion: 'surprised', anim: 'Talk', stay: true, q: text, think: 1100 });
+      say(FALLBACK, [SUPPORT, { label: '❓ Частые вопросы', go: goTo('#faq', 'Ответы на частые вопросы.') }, { label: '« Меню', go: () => menu() }], { emotion: 'surprised', anim: 'Talk', stay: true, q: text, think: 1100 });
   }
   if (askForm)
     askForm.addEventListener('submit', (e) => {
@@ -294,9 +303,180 @@ function start() {
       input.value = '';
     });
 
+  // ---------- голос и робо-звуки ----------
+  // звучит только в ответ на действия человека (клик, вопрос); кнопка 🔊/🔇 в окне, выбор запоминается
+  const soundBtn = root.querySelector('.hoshi-sound');
+  let lastUserAct = -1e9; // ещё ни одного действия — молчит
+  const markAct = () => (lastUserAct = performance.now());
+  root.addEventListener('pointerdown', markAct);
+  root.addEventListener('keydown', markAct);
+  const soundOn = () => saved.sound !== false;
+  const userAsked = () => performance.now() - lastUserAct < 4000;
+  function paintSound() {
+    if (!soundBtn) return;
+    soundBtn.textContent = soundOn() ? '🔊' : '🔇';
+    soundBtn.title = soundOn() ? 'Выключить звук' : 'Включить звук';
+    soundBtn.setAttribute('aria-label', soundBtn.title);
+  }
+  paintSound();
+  let ac = null;
+  function audio() {
+    if (!ac) {
+      try {
+        ac = new (window.AudioContext || window.webkitAudioContext)();
+      } catch {
+        return null;
+      }
+    }
+    if (ac.state === 'suspended') ac.resume().catch(() => undefined);
+    return ac;
+  }
+  /** Короткий «бип»: частота, длительность, тембр, громкость, задержка (с). */
+  function blip(freq, dur = 0.07, type = 'sine', vol = 0.05, at = 0) {
+    const a = audio();
+    if (!a) return;
+    const t = a.currentTime + at;
+    const o = a.createOscillator(), g = a.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(freq, t);
+    o.frequency.exponentialRampToValueAtTime(freq * 1.25, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g).connect(a.destination);
+    o.start(t);
+    o.stop(t + dur + 0.02);
+  }
+  const SFX = {
+    open: () => [520, 780].forEach((f, i) => blip(f, 0.08, 'sine', 0.05, i * 0.07)),
+    giggle: () => [900, 1100, 950, 1200].forEach((f, i) => blip(f, 0.05, 'triangle', 0.035, i * 0.08)),
+    happy: () => [523, 659, 784, 1047].forEach((f, i) => blip(f, 0.11, 'triangle', 0.045, i * 0.09)),
+    babble: (n) => {
+      for (let i = 0; i < n; i++) blip(380 + Math.random() * 520, 0.045 + Math.random() * 0.03, i % 3 ? 'sine' : 'triangle', 0.03, i * 0.085);
+    },
+  };
+  function sfx(name, arg) {
+    if (!soundOn() || !userAsked()) return;
+    SFX[name](arg);
+  }
+  // голос: русский голос браузера (в Edge — нейросетевой), чуть выше — как маленький робот
+  const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+  let ruVoice = null;
+  function pickVoice() {
+    if (!synth) return;
+    const vs = synth.getVoices().filter((v) => /^ru/i.test(v.lang));
+    ruVoice = vs.find((v) => /natural|online/i.test(v.name)) || vs.find((v) => /google/i.test(v.name)) || vs[0] || null;
+  }
+  if (synth) {
+    pickVoice();
+    synth.addEventListener?.('voiceschanged', pickVoice);
+  }
+  const SPOKEN = [
+    [/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\uFE0F]/gu, ''],
+    [/(\d[\d\s]*)\s*₽/g, '$1 рублей'],
+    [/AmneziaVPN/g, 'Амнезия ВПН'],
+    [/AmneziaWG/g, 'Амнезия вэ гэ'],
+    [/Amnezia/gi, 'Амнезия'],
+    [/WireGuard/gi, 'Вайргард'],
+    [/VLESS Reality/gi, 'влесс реалити'],
+    [/Happ/g, 'Хэпп'],
+    [/HOSHIMOTO/g, 'Хошимото'],
+    [/\bVPN\b/g, 'ВПН'],
+    [/iPhone/g, 'айфон'],
+    [/iPad/g, 'айпад'],
+    [/App Store/g, 'эп стор'],
+    [/Google Play/g, 'гугл плей'],
+    [/Android TV/g, 'андроид ти ви'],
+    [/Android/g, 'андроид'],
+    [/Apple TV/g, 'эпл ти ви'],
+    [/Apple ID/g, 'эпл ай ди'],
+    [/Windows/g, 'виндоус'],
+    [/Mac\b/g, 'мак'],
+    [/Telegram/g, 'телеграм'],
+    [/YouTube/g, 'ютуб'],
+    [/Instagram/g, 'инстаграм'],
+    [/\b4K\b/g, '4 К'],
+    [/APK/g, 'а пэ ка'],
+    [/@\w+/g, ''],
+    [/[«»"]/g, ''],
+    [/\s*—\s*/g, ', '],
+    [/\n+/g, '. '],
+  ];
+  // готовые записи: voice/<ключ>.mp3, список ключей — voice/index.json
+  let voiceSet = null, player = null;
+  fetch(new URL('voice/index.json', import.meta.url))
+    .then((r) => (r.ok ? r.json() : []))
+    .then((list) => (voiceSet = new Set(list)))
+    .catch(() => undefined);
+  function speak(text) {
+    if (!soundOn() || !userAsked()) return false;
+    const said = spokenText(text);
+    const key = said && vkey(said);
+    if (key && voiceSet && voiceSet.has(key)) {
+      hush();
+      const a = new Audio(new URL(`voice/${key}.mp3`, import.meta.url).href);
+      player = a;
+      a.onplay = () => bot && bot.play('Talk');
+      a.onended = () => {
+        if (player === a) player = null;
+        if (bot) bot.play('Idle');
+      };
+      a.play().catch(() => undefined);
+      return true;
+    }
+    if (!synth || !ruVoice) {
+      SFX.babble(Math.min(14, 4 + Math.round(text.length / 25)));
+      return false;
+    }
+    const clean = said;
+    if (!clean) return false;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(clean);
+    u.voice = ruVoice;
+    u.lang = ruVoice.lang;
+    u.pitch = /natural|online/i.test(ruVoice.name) ? 1.25 : 1.45;
+    u.rate = 1.07;
+    u.volume = 0.9;
+    u.onstart = () => bot && bot.play('Talk');
+    u.onend = () => bot && bot.play('Idle');
+    synth.speak(u);
+    return true;
+  }
+  function hush() {
+    if (synth) synth.cancel();
+    if (player) {
+      player.pause();
+      player = null;
+    }
+  }
+  function spokenText(text) {
+    return SPOKEN.reduce((t, [re, to]) => t.replace(re, to), text).replace(/\s+/g, ' ').trim();
+  }
+  // короткий ключ фразы (FNV-1a) — имя файла записи
+  function vkey(t) {
+    let h = 0x811c9dc5;
+    for (const ch of t) {
+      h ^= ch.codePointAt(0);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h.toString(16).padStart(8, '0');
+  }
+  if (soundBtn)
+    soundBtn.addEventListener('click', () => {
+      saved.sound = !soundOn();
+      save();
+      paintSound();
+      if (!soundOn()) hush();
+      else {
+        markAct();
+        SFX.open();
+      }
+    });
+
   function cheer() {
     if (!bot) return;
     bot.play('Happy');
+    sfx('happy');
     face.set('love', 2600);
     saved.cta = true;
     save();
@@ -411,6 +591,12 @@ function start() {
     showReturn();
   }
 
+  const HELLO = {
+    guide: 'Это инструкция. Подскажу, где нужный шаг — или что делать, если не подключается.',
+    back: 'С возвращением! Подсказать что-нибудь?',
+    phone: 'Привет! Я Хоши — помогу подключить VPN за минуту.',
+    full: 'Привет! Я Хоши, помощник HOSHIMOTO VPN. Помогу выбрать, подключить и покажу, где что на сайте.',
+  };
   // ---------- робот-шар ----------
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const bot = makeOrb(stage, reduce);
@@ -445,6 +631,7 @@ function start() {
     if (performance.now() - tickled < 4000 || performance.now() - lastSay < 2500) return;
     tickled = performance.now();
     bot.fun('giggle');
+    if (performance.now() - lastUserAct < 60000) sfx('giggle');
   });
   const playLoop = () => {
     setTimeout(playLoop, 8000 + Math.random() * 5000);
@@ -464,6 +651,20 @@ function start() {
   };
   setTimeout(playLoop, 9000);
 
+  if (/[?&]hoshi-texts\b/.test(location.search)) {
+    const list = [
+      'Чем помочь?', 'Я тут! Чем помочь?', 'С возвращением! Чем помочь?',
+      ...Object.values(HELLO), APPS_TEXT, PRICE_TEXT, TOUR_END, FALLBACK, NAV_PROMPT,
+      ...here.map((x, n) => tourText(x, n)),
+      ...SECTIONS.map((x) => x.text).filter(Boolean),
+      ...TIPS.map((t) => t[2]),
+      ...KB.map((x) => x.a),
+      ...SMALL.map((x) => x.a),
+      ...KB.flatMap((x) => (x.c ? x.c() : []).map((c) => c.go && c.go.say).filter(Boolean)),
+    ];
+    window.__hoshiTexts = [...new Set(list)].map((t) => spokenText(t)).filter(Boolean).map((t) => ({ k: vkey(t), text: t }));
+  }
+
   if (saved.hidden) return;
   setTimeout(() => {
     if (saved.quiet) {
@@ -472,13 +673,7 @@ function start() {
       return;
     }
     const phone = innerWidth < 560;
-    const hello = onGuide
-      ? 'Это инструкция. Подскажу, где нужный шаг — или что делать, если не подключается.'
-      : saved.cta
-        ? 'С возвращением! Подсказать что-нибудь?'
-        : phone
-          ? 'Привет! Я Хоши — помогу подключить VPN за минуту.'
-          : 'Привет! Я Хоши, помощник HOSHIMOTO VPN. Помогу выбрать, подключить и покажу, где что на сайте.';
+    const hello = onGuide ? HELLO.guide : saved.cta ? HELLO.back : phone ? HELLO.phone : HELLO.full;
     // на телефоне — коротко, чтобы не закрывать страницу
     say(hello, phone ? [MENU()[0], { label: '🧭 Где что на сайте', go: () => navMenu() }, { label: '💬 Ещё подсказки', go: () => menu() }] : MENU(), { emotion: 'happy', anim: 'Wave' });
     if (phone) {
