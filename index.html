@@ -873,39 +873,113 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
 .hoshi { position: fixed; right: 18px; bottom: 10px; z-index: 70; display: flex; align-items: flex-end; gap: 6px; pointer-events: none; }
 .hoshi[hidden] { display: none; }
 .hoshi > * { pointer-events: auto; }
-.hoshi-stage { position: relative; width: 150px; height: 196px; padding: 0; border: 0; cursor: pointer; flex: none;
-  background: url(assets/assistant/bot-poster.webp) center bottom 6px / auto 86% no-repeat; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.6)); transition: width 0.3s var(--ease), height 0.3s var(--ease); }
-.hoshi-live .hoshi-stage { background: none; }
-.hoshi-stage canvas { display: block; width: 100% !important; height: 100% !important; }
-.hoshi-bubble { position: relative; width: min(300px, calc(100vw - 196px)); margin-bottom: 118px; padding: 14px 14px 10px; border-radius: 16px 16px 4px 16px;
-  border: 1px solid rgba(255, 46, 77, 0.45); background: rgba(14, 14, 20, 0.95); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.9), 0 0 26px -12px rgba(255, 46, 77, 0.8); animation: hoshi-in 0.35s var(--ease); }
+.hoshi-stage { position: relative; width: 142px; height: 156px; padding: 0; border: 0; background: none; cursor: pointer; flex: none;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.55)); transition: width 0.3s var(--ease), height 0.3s var(--ease); }
+.hoshi-stage svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.hoshi-stage .orb-float, .hoshi-stage .orb-body { transform-box: view-box; transform-origin: 300px 300px; }
+.hoshi-stage .orb-shadow { transform-box: view-box; transform-origin: 300px 618px; animation: orb-shadow 4s ease-in-out infinite; }
+.hoshi-stage .orb-float { animation: orb-float 4s ease-in-out infinite; }
+.orb-a-wave { animation: orb-wave 1.6s ease-in-out; }
+.orb-a-point { animation: orb-point 2s ease-in-out; }
+.orb-a-happy { animation: orb-happy 1.3s ease-out; }
+.orb-a-talk { animation: orb-talk 0.6s ease-in-out infinite; }
+@keyframes orb-float { 0%, 100% { transform: translateY(-12px); } 50% { transform: translateY(12px); } }
+@keyframes orb-shadow { 0%, 100% { transform: scale(0.8); opacity: 0.6; } 50% { transform: scale(1); opacity: 1; } }
+@keyframes orb-wave { 0%, 100% { transform: rotate(0); } 15% { transform: rotate(-16deg); } 35% { transform: rotate(13deg); } 55% { transform: rotate(-10deg); } 75% { transform: rotate(7deg); } }
+@keyframes orb-point { 0%, 100% { transform: none; } 20%, 75% { transform: translate(-22px, -10px) rotate(-12deg); } }
+@keyframes orb-happy { 0%, 100% { transform: none; } 12% { transform: scale(1.08, 0.9); } 32% { transform: translateY(-70px) scale(0.95, 1.06); } 52% { transform: translateY(0) scale(1.08, 0.92); } 68% { transform: translateY(-30px); } 84% { transform: scale(1.04, 0.96); } }
+@keyframes orb-talk { 0%, 100% { transform: none; } 50% { transform: translateY(-6px) scale(1.02, 0.98); } }
+.orb-a-bounce { animation: orb-bounce 1.7s ease-in-out; }
+.orb-a-spin { animation: orb-spin 1.3s cubic-bezier(0.5, 0, 0.3, 1); }
+.orb-a-giggle { animation: orb-giggle 1.5s ease-in-out; }
+.orb-a-dance { animation: orb-dance 2.2s ease-in-out; }
+@keyframes orb-bounce { 0%, 100% { transform: none; } 8%, 40%, 72% { transform: scale(1.08, 0.9); } 22%, 54% { transform: translateY(-46px) scale(0.96, 1.05); } 86% { transform: translateY(-22px); } }
+@keyframes orb-spin { 0% { transform: none; } 30% { transform: translateY(-30px) rotate(160deg); } 70% { transform: translateY(-20px) rotate(330deg); } 100% { transform: rotate(360deg); } }
+@keyframes orb-giggle { 0%, 100% { transform: none; } 10%, 30%, 50%, 70% { transform: translateX(-7px) rotate(-5deg) scale(1.03, 0.97); } 20%, 40%, 60%, 80% { transform: translateX(7px) rotate(5deg) scale(0.98, 1.02); } }
+@keyframes orb-dance { 0%, 100% { transform: none; } 12%, 37%, 62% { transform: translate(-14px, -10px) rotate(-12deg); } 25%, 50%, 75% { transform: translate(14px, 0) rotate(12deg); } 88% { transform: translateY(-24px) rotate(0); } }
+/* работает на ноутбуке: ноутбук выезжает перед шаром, отсвет экрана, печатает */
+.hoshi-stage .orb-laptop { transform-box: view-box; transform-origin: 300px 526px; transform: translateY(80px) scale(0.3); opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.2, 1.35, 0.35, 1), opacity 0.25s ease; }
+.orb-working .orb-laptop { transform: none; opacity: 1; }
+.hoshi-stage .orb-lid { transform-box: view-box; transform-origin: 300px 506px; }
+.orb-working .orb-lid { animation: orb-type 0.16s ease-in-out infinite alternate; }
+.orb-working .orb-logo { animation: orb-logo 1.1s ease-in-out infinite; }
+.hoshi-stage .orb-screenlight { opacity: 0; transition: opacity 0.35s ease; }
+.orb-working .orb-screenlight { opacity: 1; }
+@keyframes orb-type { to { transform: translateY(2px) rotate(0.6deg); } }
+@keyframes orb-logo { 50% { opacity: 0.45; } }
+.hoshi-dots { display: inline-flex; gap: 5px; margin-right: 10px; vertical-align: middle; }
+.hoshi-dots i { width: 7px; height: 7px; border-radius: 50%; background: #5ee7f7; box-shadow: 0 0 8px rgba(34, 211, 238, 0.8); animation: hoshi-dot 1s ease-in-out infinite; }
+.hoshi-dots i:nth-child(2) { animation-delay: 0.15s; }
+.hoshi-dots i:nth-child(3) { animation-delay: 0.3s; }
+.hoshi-typing { color: #8fa4b8; font-size: 13px; }
+@keyframes hoshi-dot { 0%, 60%, 100% { transform: translateY(0); opacity: 0.45; } 30% { transform: translateY(-5px); opacity: 1; } }
+.orb-pt { font: 700 112px/1 var(--font-body); paint-order: stroke; animation: orb-pt 1.8s ease-out forwards; transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 8px rgba(255, 46, 77, 0.7)); }
+@keyframes orb-pt { 0% { opacity: 0; transform: translate(0, 20px) scale(0.5); } 18% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--dx, 0), -150px) scale(0.8) rotate(12deg); } }
+@media (prefers-reduced-motion: reduce) { .hoshi-stage .orb-float, .hoshi-stage .orb-shadow { animation: none; } }
+.hoshi-bubble { --hb: 34, 211, 238; position: relative; width: min(318px, calc(100vw - 190px)); margin-bottom: 98px; padding: 15px 15px 11px; border-radius: 18px 18px 5px 18px;
+  border: 1px solid rgba(var(--hb), 0.45); background: linear-gradient(180deg, rgba(14, 26, 42, 0.96), rgba(8, 12, 22, 0.97));
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transform-origin: 100% 100%;
+  box-shadow: 0 22px 48px -20px rgba(0, 0, 0, 0.95), 0 0 30px -10px rgba(var(--hb), 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: hoshi-open 0.55s cubic-bezier(0.2, 1.25, 0.35, 1) both; }
+.hoshi-bubble::before { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(120% 60% at 100% 0%, rgba(var(--hb), 0.12), transparent 60%); }
 .hoshi-bubble[hidden] { display: none; }
-.hoshi-text { margin: 0 20px 10px 0; min-height: 2.9em; font-size: 14px; line-height: 1.45; color: var(--text); }
-.hoshi-chips { display: flex; flex-direction: column; gap: 6px; }
-.hoshi-chip { display: block; padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.03); color: var(--text-2);
-  font: 500 13px var(--font-body); text-align: left; text-decoration: none; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
-.hoshi-chip:hover { color: var(--text); border-color: rgba(255, 46, 77, 0.5); background: rgba(255, 46, 77, 0.08); }
+.hoshi-closing .hoshi-bubble { animation: hoshi-close 0.26s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
+@keyframes hoshi-open { 0% { opacity: 0; transform: translate(30px, 34px) scale(0.5); filter: blur(10px); } 55% { opacity: 1; filter: blur(0); } 100% { opacity: 1; transform: none; filter: none; } }
+@keyframes hoshi-close { to { opacity: 0; transform: translate(26px, 30px) scale(0.55); filter: blur(8px); } }
+.hoshi-q { position: relative; margin: 0 22px 8px 0; padding: 6px 10px; border-radius: 10px 10px 3px 10px; justify-self: end; width: fit-content; max-width: 100%; margin-left: auto;
+  background: rgba(var(--hb), 0.14); border: 1px solid rgba(var(--hb), 0.3); color: #d9f8ff; font-size: 13px; line-height: 1.35; animation: hoshi-chip 0.35s cubic-bezier(0.2, 1, 0.3, 1) both; }
+.hoshi-q[hidden] { display: none; }
+.hoshi-text { position: relative; margin: 0 22px 10px 0; min-height: 2.9em; font-size: 14px; line-height: 1.45; color: var(--text); white-space: pre-line; }
+.hoshi-chips { position: relative; display: flex; flex-direction: column; gap: 6px; }
+.hoshi-chip { display: block; padding: 8px 11px; border-radius: 10px; border: 1px solid rgba(var(--hb), 0.22); background: rgba(var(--hb), 0.05); color: #c9d8e6;
+  font: 500 13px var(--font-body); text-align: left; text-decoration: none; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.15s;
+  animation: hoshi-chip 0.45s cubic-bezier(0.2, 1, 0.3, 1) both; animation-delay: calc(var(--n, 0) * 55ms + 120ms); }
+.hoshi-chip:hover { color: #fff; border-color: rgba(var(--hb), 0.65); background: rgba(var(--hb), 0.13); transform: translateX(-2px); }
 .hoshi-chip.main { color: #fff; border-color: transparent; background: linear-gradient(90deg, #ff2e4d, #d9112e); box-shadow: 0 8px 20px -8px rgba(255, 46, 77, 0.8); }
-.hoshi-close { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--text-3); font-size: 20px; line-height: 1; cursor: pointer; }
-.hoshi-close:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
-.hoshi-hide { margin-top: 8px; padding: 0; border: 0; background: none; color: var(--text-3); font-size: 11.5px; text-decoration: underline; cursor: pointer; }
+.hoshi-chip.main:hover { background: linear-gradient(90deg, #ff4560, #e81a38); }
+@keyframes hoshi-chip { from { opacity: 0; transform: translateY(8px); } }
+.hoshi-ask { position: relative; display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(var(--hb), 0.16); }
+.hoshi-ask input { flex: 1; min-width: 0; height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(var(--hb), 0.3); background: rgba(3, 8, 16, 0.7);
+  color: var(--text); font: 400 13.5px var(--font-body); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+.hoshi-ask input::placeholder { color: rgba(201, 216, 230, 0.5); }
+.hoshi-ask input:focus { border-color: rgba(var(--hb), 0.75); box-shadow: 0 0 0 3px rgba(var(--hb), 0.15); }
+.hoshi-ask button { flex: none; width: 36px; height: 36px; border-radius: 10px; border: 0; cursor: pointer; color: #04121a; font-size: 15px;
+  background: linear-gradient(180deg, #5ee7f7, #22d3ee); box-shadow: 0 6px 16px -6px rgba(var(--hb), 0.9); transition: transform 0.15s, filter 0.15s; }
+.hoshi-ask button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.hoshi-close { position: absolute; z-index: 1; top: 7px; right: 7px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; color: #8fa4b8; font-size: 20px; line-height: 1; cursor: pointer; }
+.hoshi-close:hover { color: #fff; background: rgba(var(--hb), 0.12); }
+.hoshi-hide { position: relative; margin-top: 8px; padding: 0; border: 0; background: none; color: #7d91a5; font-size: 11.5px; text-decoration: underline; cursor: pointer; }
 .hoshi-min .hoshi-bubble { display: none; }
-.hoshi-min .hoshi-stage { width: 100px; height: 130px; }
+/* «Нужна помощь?» над свёрнутым помощником */
+.hoshi-hint { position: absolute; right: 6px; bottom: calc(100% + 2px); padding: 8px 13px; border-radius: 14px 14px 4px 14px; white-space: nowrap;
+  border: 1px solid rgba(34, 211, 238, 0.5); background: rgba(10, 18, 30, 0.95); color: var(--text); font: 500 13px var(--font-body); cursor: pointer;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.9), 0 0 18px -8px rgba(34, 211, 238, 0.8); animation: hoshi-hint-in 0.4s var(--ease), hoshi-hint-bob 3s ease-in-out 0.4s infinite; }
+.hoshi-hint[hidden] { display: none; }
+.hoshi-hint:hover { border-color: rgba(34, 211, 238, 0.9); background: rgba(14, 30, 44, 0.97); }
+.hoshi-hint::after { content: ''; position: absolute; right: 22px; bottom: -6px; width: 10px; height: 10px; transform: rotate(45deg);
+  background: rgba(10, 18, 30, 0.95); border-right: 1px solid rgba(34, 211, 238, 0.5); border-bottom: 1px solid rgba(34, 211, 238, 0.5); }
+@keyframes hoshi-hint-in { from { opacity: 0; transform: translateY(6px) scale(0.9); } }
+@keyframes hoshi-hint-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.hoshi-min .hoshi-stage { width: 84px; height: 92px; }
 .hoshi-return { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: flex; align-items: center; justify-content: center; gap: 7px; width: 48px; height: 42px;
   border-radius: 12px; border: 1px solid rgba(255, 46, 77, 0.5); background: #141418; cursor: pointer; box-shadow: 0 0 18px -6px rgba(255, 46, 77, 0.8); }
 .hoshi-return i { width: 6px; height: 15px; border-radius: 3px; background: #fff4f7; box-shadow: 0 0 8px #ff466e; }
 @keyframes hoshi-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
 @media (max-width: 560px) {
   .hoshi { right: 4px; bottom: 4px; }
-  .hoshi-stage { width: 96px; height: 126px; }
-  .hoshi-bubble { width: min(268px, calc(100vw - 108px)); margin-bottom: 72px; }
+  .hoshi-stage { width: 84px; height: 92px; }
+  .hoshi-bubble { width: min(268px, calc(100vw - 100px)); margin-bottom: 56px; }
   .hoshi-text { font-size: 13px; min-height: 0; }
   .hoshi-chip { padding: 7px 10px; font-size: 12.5px; }
-  .hoshi-min .hoshi-stage { width: 74px; height: 96px; }
+  .hoshi-min .hoshi-stage { width: 66px; height: 72px; }
 }
 .hoshi-spot { animation: hoshi-spot 2.6s var(--ease); border-radius: 18px; }
 @keyframes hoshi-spot { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 46, 77, 0); } 15%, 60% { box-shadow: 0 0 0 2px rgba(255, 46, 77, 0.55), 0 0 42px -6px rgba(255, 46, 77, 0.6); } }
+@media (max-width: 560px) { .hoshi-hint { right: 2px; padding: 6px 10px; font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { .hoshi-hint { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .hoshi-bubble, .hoshi-closing .hoshi-bubble, .hoshi-chip, .hoshi-q { animation: none; } }
 @media print { .hoshi, .hoshi-return { display: none; } }
 </style>
 </head>
@@ -1045,14 +1119,14 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       <article class="card hud app-card reveal" data-tone="red">
         <div class="app-head">
           <span class="app-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6.5v5.5c0 5-3.4 8.6-8 9.5-4.6-.9-8-4.5-8-9.5V6.5L12 3Z"/></svg></span>
-          <h3>AmneziaVPN<small>ключ · AmneziaWG</small></h3>
+          <h3>AmneziaVPN<small>ключ · максимальная скорость</small></h3>
           <span class="app-price">от 290 ₽<small>в месяц</small></span>
         </div>
         <ul>
+          <li><span><b>Максимальная скорость и стабильность</b> — AmneziaWG на базе WireGuard, одного из самых быстрых VPN-протоколов: низкий пинг, игры и 4K без задержек</span></li>
           <li><span><b>Ключ на выбранный сервер</b> — Нидерланды или США, на тарифах дольше — несколько серверов</span></li>
           <li><span><b>Наше приложение HOSHIMOTO VPN</b> для Windows, Android и Android TV</span></li>
           <li><span>AmneziaVPN и AmneziaWG — для iPhone, Mac и роутеров</span></li>
-          <li><span>Протокол AmneziaWG — быстрый и устойчивый к блокировкам</span></li>
         </ul>
       </article>
     </div>
@@ -1446,7 +1520,7 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
       </details>
       <details id="faq-8">
         <summary><span class="q">08</span>Что выбрать: Happ или AmneziaVPN?</summary>
-        <p><b>Happ</b> — если хотите проще и дешевле: от 190 ₽ в месяц, все страны в одной подписке, 2 устройства, приложение есть в App Store и Google Play без смены региона. <b>AmneziaVPN</b> — если нужен ключ на конкретный сервер, наше приложение для ПК и Android TV или настройка на роутере. Попробовать можно оба — 7 дней бесплатно.</p>
+        <p><b>AmneziaVPN</b> — если важны максимальная скорость и стабильность: протокол AmneziaWG построен на WireGuard — одном из самых быстрых VPN-протоколов, с низким пингом для игр, звонков и 4K. Плюс наше приложение для ПК и Android TV и настройка на роутере. <b>Happ</b> — если хотите проще и дешевле: от 190 ₽ в месяц, все страны в одной подписке, 2 устройства, приложение есть в App Store и Google Play без смены региона. Попробовать можно оба — 7 дней бесплатно.</p>
       </details>
     </div>
   </section>
@@ -1864,17 +1938,22 @@ nav.links a.nav-earn .code { color: rgba(255, 176, 32, 0.7); }
   })();
 </script>
 
-<!-- помощник «Хоши»: 3D-робот, подсказывает по сайту (assets/assistant) -->
+<!-- помощник «Хоши»: робот-шар, подсказывает по сайту (assets/assistant) -->
 <div class="hoshi" id="hoshi" aria-live="polite">
   <div class="hoshi-bubble" hidden>
     <button class="hoshi-close" type="button" aria-label="Свернуть подсказки">×</button>
+    <p class="hoshi-q" hidden></p>
     <p class="hoshi-text"></p>
     <div class="hoshi-chips"></div>
+    <form class="hoshi-ask" autocomplete="off">
+      <input type="text" name="q" maxlength="200" placeholder="Задайте вопрос о VPN…" aria-label="Вопрос помощнику" />
+      <button type="submit" aria-label="Спросить">➤</button>
+    </form>
     <button class="hoshi-hide" type="button">Скрыть помощника</button>
   </div>
+  <button class="hoshi-hint" type="button" hidden>Нужна помощь?</button>
   <button class="hoshi-stage" type="button" aria-label="Помощник Хоши — подсказки по сайту"></button>
 </div>
-<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
 <script type="module">
   // помощник грузится, когда страница уже готова — сайт не ждёт 3D
   const go = () => import('./assets/assistant/assistant.js').catch(() => undefined);
