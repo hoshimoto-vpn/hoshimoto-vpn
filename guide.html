@@ -387,6 +387,8 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
 footer nav a { padding: 6px 10px; border-radius: 8px; color: var(--text-2); font-size: 13.5px; }
 footer nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.03); }
 footer .copy { font: 400 11px var(--font-mono); letter-spacing: 0.08em; color: var(--text-3); text-transform: uppercase; }
+footer .legal { flex-basis: 100%; font-size: 12px; color: var(--text-3); }
+footer .legal a { color: var(--text-2); }
 
 /* появление при прокрутке, как в панели */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
@@ -1449,8 +1451,11 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       <a href="index.html#faq">Вопросы</a>
       <a href="guide.html">Инструкция</a>
       <a href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Поддержка</a>
+      <a href="terms.html">Соглашение</a>
+      <a href="privacy.html">Конфиденциальность</a>
     </nav>
     <span class="copy">© 2026 HOSHIMOTO Virtual Private Network</span>
+    <span class="legal">Поддержка: <a href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">@Hoshimoto_03</a> · Исполнитель и реквизиты — в <a href="terms.html">Пользовательском соглашении</a></span>
   </footer>
 </div>
 <div class="search" id="search" role="dialog" aria-modal="true" aria-label="Поиск по сайту" hidden>
@@ -1570,7 +1575,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
     var guide = onGuide ? '' : 'guide.html';
     var ITEMS = [
       { tag: 'Главная', t: 'Попробовать 7 дней бесплатно', d: 'Пробный ключ в Telegram-боте, без карты и оплаты', k: 'бесплатно пробный триал тест 7 дней бот', u: home + '#how' },
-      { tag: 'Главная', t: 'Возможности', d: 'Скорость, шифрование, работа при блокировках', k: 'преимущества шифрование защита скорость', u: home + '#features' },
+      { tag: 'Главная', t: 'Возможности', d: 'Скорость, шифрование, стабильное соединение', k: 'преимущества шифрование защита скорость', u: home + '#features' },
       { tag: 'Главная', t: 'Как начать — три шага', d: 'Бот → сервер → вставить ключ', k: 'начать подключить бот ключ шаги', u: home + '#how' },
       { tag: 'Главная', t: 'Скачать приложение', d: 'Windows, macOS, iPhone, Android, Android TV', k: 'скачать установить приложение exe apk windows android iphone mac телевизор tv', u: home + '#download' },
       { tag: 'Главная', t: 'Как выглядит приложение', d: 'Скриншоты HOSHIMOTO VPN и AmneziaVPN', k: 'скриншот экран приложение вид', u: home + '#screens' },
