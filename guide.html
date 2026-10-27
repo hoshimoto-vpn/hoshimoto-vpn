@@ -1120,7 +1120,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       <a class="nav-earn" href="index.html#partners">Партнёрам<span class="code">05</span></a>
       <a href="index.html#faq">Вопросы<span class="code">06</span></a>
       <a href="guide.html" aria-current="page">Инструкция<span class="code">07</span></a>
-      <a class="nav-cta" href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">Получить VPN — 7 дней бесплатно</a>
+      <a class="nav-cta" href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener"><span>Получить VPN — <span data-live="trial">7 дней</span> бесплатно</span></a>
     </nav>
     <div class="actions">
       <button class="icon-btn search-btn" type="button" aria-label="Поиск по сайту" title="Поиск (Ctrl+K)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
@@ -1435,7 +1435,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
   <section class="card hud final reveal">
     <div class="eyebrow"><b>START</b> / Telegram</div>
     <h2>Готовы подключиться?</h2>
-    <p>Ключ на 7 дней — бесплатно, за минуту.</p>
+    <p>Ключ на <span data-live="trial">7 дней</span> — бесплатно, за минуту.</p>
     <div class="row">
       <a class="btn btn-primary btn-lg" href="https://t.me/Hoshimoto_VPN_bot?start=site" target="_blank" rel="noopener">Получить ключ</a>
       <a class="btn btn-lg" href="https://t.me/Hoshimoto_03" target="_blank" rel="noopener">Задать вопрос</a>
@@ -1471,6 +1471,7 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
 </div>
 
 
+<script src="assets/live.js"></script>
 <script>
   // вкладки устройств; сразу открываем вкладку под устройство посетителя
   (function () {
@@ -1574,16 +1575,16 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
     var home = onGuide ? 'index.html' : '';
     var guide = onGuide ? '' : 'guide.html';
     var ITEMS = [
-      { tag: 'Главная', t: 'Попробовать 7 дней бесплатно', d: 'Пробный ключ в Telegram-боте, без карты и оплаты', k: 'бесплатно пробный триал тест 7 дней бот', u: home + '#how' },
+      { tag: 'Главная', t: 'Попробовать {trial} бесплатно', d: 'Пробный ключ в Telegram-боте, без карты и оплаты', k: 'бесплатно пробный триал тест 7 дней бот', u: home + '#how' },
       { tag: 'Главная', t: 'Возможности', d: 'Скорость, шифрование, стабильное соединение', k: 'преимущества шифрование защита скорость', u: home + '#features' },
       { tag: 'Главная', t: 'Как начать — три шага', d: 'Бот → сервер → вставить ключ', k: 'начать подключить бот ключ шаги', u: home + '#how' },
       { tag: 'Главная', t: 'Скачать приложение', d: 'Windows, macOS, iPhone, Android, Android TV', k: 'скачать установить приложение exe apk windows android iphone mac телевизор tv', u: home + '#download' },
       { tag: 'Главная', t: 'Как выглядит приложение', d: 'Скриншоты HOSHIMOTO VPN и AmneziaVPN', k: 'скриншот экран приложение вид', u: home + '#screens' },
       { tag: 'Главная', t: 'Серверы', d: 'Нидерланды, США, скоро Германия — нагрузка и скорость', k: 'сервер страна нидерланды сша германия скорость нагрузка', u: home + '#servers' },
-      { tag: 'Тарифы', t: 'Тарифы и цены', d: 'Пробный 7 дней · 1 месяц 290 ₽ · 3 месяца 790 ₽ · 1 год 2 990 ₽', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
-      { tag: 'Тарифы', t: '3 месяца — 2 сервера', d: '790 ₽ за 3 месяца (≈ 263 ₽ в месяц), две страны на выбор', k: 'три месяца квартал два сервера', u: home + '#pricing' },
-      { tag: 'Тарифы', t: '2 ключа на месяц — 390 ₽', d: 'Скидка 190 ₽ на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
-      { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '2 990 ₽ в год (≈ 249 ₽ в месяц), все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
+      { tag: 'Тарифы', t: 'Тарифы и цены', d: 'Пробный {trial} · 1 месяц {p:awg:30} · 3 месяца {p:awg:90} · 1 год {p:awg:365}', k: 'цена стоимость тариф оплата купить месяц год рубль', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '3 месяца — 2 сервера', d: '{p:awg:90} за 3 месяца (≈ {pm:awg:90} в месяц), две страны на выбор', k: 'три месяца квартал два сервера', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '2 ключа на месяц — {p:awg:30:k2}', d: 'Скидка {saven:awg:30:k2} на второй ключ для второго устройства', k: 'скидка два ключа второе устройство акция', u: home + '#pricing' },
+      { tag: 'Тарифы', t: '1 год — 3 сервера на 3 устройства', d: '{p:awg:365} в год (≈ {pm:awg:365} в месяц), все серверы, до 3 устройств', k: 'год семья три устройства все серверы', u: home + '#pricing' },
       { tag: 'Поддержка', t: 'Написать в Telegram или WhatsApp', d: 'Оплата, продление и помощь с подключением', k: 'поддержка менеджер связаться оплатить продлить whatsapp telegram', u: home + '#faq' },
       { tag: 'Инструкция', t: 'Получить ключ в Telegram', d: 'Бот @Hoshimoto_VPN_bot, выбор сервера, без номера телефона', k: 'ключ бот телеграм номер', u: guide + '#key' },
       { tag: 'Инструкция', t: 'Установить приложение', d: 'iPhone, Android, Windows, macOS — по шагам', k: 'установка установить приложение', u: guide + '#install' },
@@ -1592,6 +1593,17 @@ h3 svg { width: 22px; height: 22px; flex: none; color: var(--red); filter: drop-
       { tag: 'Инструкция', t: 'PDF-инструкция в картинках', d: 'Смена региона на iPhone по скриншотам', k: 'pdf картинки скриншоты регион', u: guide + '#pdf' },
       { tag: 'Инструкция', t: 'Не подключается?', d: 'Неверный ключ, сайты не открываются, перестало работать', k: 'ошибка не работает не подключается проблема помощь', u: guide + '#help' },
     ];
+    // цифры (пробный срок, цены, процент) — из панели: assets/live.js
+    var relive = function () {
+      ITEMS.forEach(function (it) {
+        it.t0 = it.t0 || it.t;
+        it.d0 = it.d0 || it.d;
+        it.t = window.hsLive ? hsLive.fill(it.t0) : it.t0;
+        it.d = window.hsLive ? hsLive.fill(it.d0) : it.d0;
+      });
+    };
+    relive();
+    document.addEventListener('hs-live', relive);
     // вопросы FAQ — с главной страницы (на инструкции — заранее известный список)
     var FAQ = ['Что такое HOSHIMOTO VPN?', 'Как начать пользоваться?', 'Это правда бесплатно?', 'На каких устройствах работает?', 'Сколько устройств можно подключить?', 'Нужен ли номер телефона?', 'Что делать, если не подключается?'];
     FAQ.forEach(function (q, i) {

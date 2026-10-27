@@ -26,7 +26,7 @@ function start() {
       root.classList.add('hoshi-min');
     }, 250);
   }
-  const HINTS = ['Нужна помощь?', 'Покажу, где что 🧭', '7 дней бесплатно 🎁'];
+  const HINTS = ['Нужна помощь?', 'Покажу, где что 🧭', '{trial} бесплатно 🎁'];
   let hintN = 0;
   const syncHint = () => {
     if (hint) hint.hidden = !root.classList.contains('hoshi-min') || root.hidden;
@@ -35,7 +35,7 @@ function start() {
   setInterval(() => {
     if (!hint || hint.hidden) return;
     hintN = (hintN + 1) % HINTS.length;
-    hint.textContent = HINTS[hintN];
+    hint.textContent = live(HINTS[hintN]);
   }, 9000);
   const STORE = 'hoshi:v1';
   let saved = {};
@@ -55,7 +55,10 @@ function start() {
   // ---------- облачко с подсказками ----------
   let typing = 0, autoMin = 0, lastSay = 0;
   let thinking = 0;
+  // цифры в текстах — «{trial}», «{p:happ:30}» — из панели (assets/live.js); без него — как есть
+  const live = (s) => (window.hsLive ? window.hsLive.fill(s) : s);
   function say(text, chips = [], { emotion = 'happy', anim = 'Talk', stay = false, q = '', think = 0 } = {}) {
+    text = live(text);
     clearTimeout(thinking);
     clearTimeout(closing);
     closing = 0;
@@ -94,7 +97,7 @@ function start() {
       const b = document.createElement(c.href ? 'a' : 'button');
       b.style.setProperty('--n', String(n));
       b.className = 'hoshi-chip' + (c.main ? ' main' : '');
-      b.textContent = c.label;
+      b.textContent = live(c.label);
       if (c.href) {
         b.href = c.href;
         if (/^https?:/.test(c.href)) {
@@ -129,13 +132,13 @@ function start() {
         { sel: '#download', name: '📲 Скачать приложение', text: 'Кнопки для Windows, Mac, iPhone, Android и TV — выберите своё устройство.' },
         { sel: '#servers', name: '🌍 Серверы', text: 'Наши страны и нагрузка серверов в реальном времени.' },
         { sel: '#pricing', name: '💳 Тарифы', text: 'Переключатель сверху: Happ или AmneziaVPN. Чем длиннее срок — тем дешевле месяц.' },
-        { sel: '#partners', name: '💰 Партнёрам', text: 'Советуйте VPN друзьям и получайте 30% с каждой их оплаты — бонусами или деньгами от 1 500 ₽. Подвигайте ползунок — посчитайте бонусы.' },
+        { sel: '#partners', name: '💰 Партнёрам', text: 'Советуйте VPN друзьям и получайте {pct} с каждой их оплаты — бонусами или деньгами от {minpay}. Подвигайте ползунок — посчитайте бонусы.' },
         { sel: '#faq', name: '❓ Вопросы', text: 'Ответы на частые вопросы: что выбрать, сколько устройств, что делать, если не подключается.' },
         { href: 'guide.html', name: '📖 Инструкция', text: '' },
       ];
   const here = SECTIONS.filter((x) => x.sel && document.querySelector(x.sel));
 
-  const APPS_TEXT = 'AmneziaVPN — максимальная скорость и стабильность (протокол на базе WireGuard), от 290 ₽. Happ — все страны в одной подписке и 2 устройства, от 190 ₽. Попробовать можно оба.';
+  const APPS_TEXT = 'AmneziaVPN — максимальная скорость и стабильность (протокол на базе WireGuard), от {p:awg:30}. Happ — все страны в одной подписке и 2 устройства, от {p:happ:30}. Попробовать можно оба.';
   const PRICE_TEXT = 'Переключатель сверху: Happ или AmneziaVPN. Чем длиннее срок — тем дешевле месяц.';
   const TOUR_END = 'Вот и весь сайт! Попробуете бесплатно? Ключ придёт в Telegram за минуту.';
   const FALLBACK = 'Пока не знаю ответа на это 🤔 Спросите по-другому — например, «сколько стоит» или «как подключить на iPhone». Или напишите в поддержку — там ответят.';
@@ -151,7 +154,7 @@ function start() {
           { label: '🏠 На главную', href: 'index.html' },
         ]
       : [
-          { label: '🎁 Попробовать 7 дней бесплатно', main: true, href: BOT, go: () => cheer() },
+          { label: '🎁 Попробовать {trial} бесплатно', main: true, href: BOT, go: () => cheer() },
           { label: '🗺 Экскурсия по сайту — 30 секунд', go: () => tour(0) },
           { label: '🧭 Где что на сайте', go: () => navMenu() },
           { label: '⚡️ Happ или AmneziaVPN?', go: () => guide('#how', 'apps', APPS_TEXT) },
@@ -176,7 +179,7 @@ function start() {
   function tour(n) {
     if (n >= here.length) {
       say(TOUR_END, [
-        { label: '🎁 Попробовать 7 дней бесплатно', main: true, href: BOT, go: () => cheer() },
+        { label: '🎁 Попробовать {trial} бесплатно', main: true, href: BOT, go: () => cheer() },
         { label: '« Меню', go: () => menu() },
       ], { emotion: 'happy', anim: 'Wave', stay: true });
       return;
@@ -199,13 +202,13 @@ function start() {
   // раздел страницы: здесь — прокрутить и показать, на другой странице — перейти
   const goTo = (sel, text) => Object.assign(() => (document.querySelector(sel) ? guide(sel, sel, text) : (location.href = 'index.html' + sel)), { say: text });
   const SUPPORT = { label: '✉️ Поддержка в Telegram', href: 'https://t.me/Hoshimoto_03' };
-  const TRY = { label: '🎁 Попробовать 7 дней бесплатно', main: true, href: BOT, go: () => cheer() };
+  const TRY = { label: '🎁 Попробовать {trial} бесплатно', main: true, href: BOT, go: () => cheer() };
   const KB = [
     { k: ['цен', 'стои', 'тариф', 'скольк', 'руб', '₽', 'дорог', 'дешев', 'прайс', 'месяц', 'год'], emo: 'happy',
-      a: 'Happ: 190 ₽ в месяц, 500 ₽ за 3 месяца, 1 990 ₽ за год — все страны, 2 устройства.\nAmneziaVPN: 290 ₽ в месяц (2 ключа — 390 ₽), 790 ₽ за 3 месяца, 2 990 ₽ за год.\nПервые 7 дней — бесплатно.',
+      a: 'Happ: {p:happ:30} в месяц, {p:happ:90} за 3 месяца, {p:happ:365} за год — все страны, 2 устройства.\nAmneziaVPN: {p:awg:30} в месяц (2 ключа — {p:awg:30:k2}), {p:awg:90} за 3 месяца, {p:awg:365} за год.\nПервые {trial} — бесплатно.',
       c: () => [TRY, { label: '💳 Открыть тарифы', go: goTo('#pricing', 'Переключатель сверху: Happ или AmneziaVPN.') }] },
     { k: ['бесплат', 'пробн', 'тест', 'попроб', 'триал', 'trial', '7 дн', 'халяв'], emo: 'love',
-      a: '7 дней — бесплатно и без карты. Откройте нашего Telegram-бота, нажмите «Получить ключ» и выберите приложение — ключ придёт за минуту. Один пробный ключ на Telegram-аккаунт.',
+      a: '{trial} — бесплатно и без карты. Откройте нашего Telegram-бота, нажмите «Получить ключ» и выберите приложение — ключ придёт за минуту. Один пробный ключ на Telegram-аккаунт.',
       c: () => [TRY] },
     { k: ['happ', 'хапп', 'хап', 'amnezia', 'амнез', 'выбра', 'разниц', 'лучше', 'отлича', 'какой', 'что лучше'], emo: 'look',
       a: 'AmneziaVPN — для максимальной скорости и стабильности: протокол AmneziaWG построен на WireGuard — одном из самых быстрых VPN-протоколов. Низкий пинг, видео в 4K и игры без задержек, ключ на выбранный сервер.\nHapp — проще и дешевле: одна подписка на все страны (Финляндия, Нидерланды, США), 2 устройства, есть в App Store и Google Play.',
@@ -232,7 +235,7 @@ function start() {
       a: 'Попробуйте: 1) обновить приложение до последней версии; 2) в Happ — «Обновить подписку» и выбрать другую страну; 3) переключиться между Wi-Fi и мобильным интернетом. Не помогло — напишите в поддержку, разберёмся.',
       c: () => [SUPPORT, { label: '🛟 Что делать, если не подключается', href: 'guide.html#help' }] },
     { k: ['устройств', 'два телефон', '2 телефон', 'двух', 'нескольк', 'одновремен', 'семь', 'жена', 'муж', 'дет', 'второй', 'втором', 'планшет'], emo: 'happy',
-      a: 'Happ: одна подписка — 2 устройства. AmneziaVPN: 1 ключ — 1 устройство; два ключа на месяц — 390 ₽ вместо 580 ₽, годовой тариф — сразу на 3 устройства.',
+      a: 'Happ: одна подписка — 2 устройства. AmneziaVPN: 1 ключ — 1 устройство; два ключа на месяц — {p:awg:30:k2} вместо {old:awg:30:k2}, годовой тариф — сразу на 3 устройства.',
       c: () => [{ label: '💳 Тарифы', go: goTo('#pricing', 'Тарифы Happ и AmneziaVPN.') }] },
     { k: ['оплат', 'заплат', 'карт', 'перевод', 'продл', 'купит', 'покуп', 'сбп', 'реквизит'], emo: 'happy',
       a: 'Оплата — через менеджера: в боте нажмите «Купить» или «Продлить», выберите тариф — бот даст контакт, менеджер пришлёт реквизиты и сразу продлит ключ.',
@@ -241,7 +244,7 @@ function start() {
       a: 'Happ — Финляндия, Нидерланды и США сразу в одной подписке. AmneziaVPN — Нидерланды или США на выбор. Скоро добавится Германия.',
       c: () => [{ label: '🌍 Серверы на сайте', go: goTo('#servers', 'Серверы и их нагрузка в реальном времени.') }] },
     { k: ['партн', 'зарабат', 'заработ', 'реферал', 'процент', 'пригла', 'друз'], emo: 'love',
-      a: 'Советуйте VPN друзьям и получайте 30% с каждой их оплаты — пока они пользуются. Бонусами можно оплатить свой VPN или вывести деньгами от 1 500 ₽. Ссылку и кабинет даст бот: кнопка «🎁 Бонусы за друзей».',
+      a: 'Советуйте VPN друзьям и получайте {pct} с каждой их оплаты — пока они пользуются. Бонусами можно оплатить свой VPN или вывести деньгами от {minpay}. Ссылку и кабинет даст бот: кнопка «🎁 Бонусы за друзей».',
       c: () => [{ label: '💰 Подробнее', go: goTo('#partners', 'Подвигайте ползунок — посчитайте бонусы.') }, { label: '🤝 Стать партнёром', href: 'https://t.me/Hoshimoto_VPN_bot?start=partner' }] },
     { k: ['номер', 'регистрац', 'почт', 'email', 'паспорт', 'личные данн'], emo: 'happy',
       a: 'Номер телефона, почта и регистрация не нужны — ключ выдаётся в Telegram одним нажатием.',
@@ -510,7 +513,7 @@ function start() {
   const TIPS = onGuide
     ? [['#appstore', 'appstore', 'Нет AmneziaVPN в App Store? Можно сменить регион — или просто взять Happ: он есть в российском App Store.', [{ label: '⚡️ Про Happ', go: () => guide('#happ', 'happ', SECTIONS[1].text) }]]]
     : [
-        ['#pricing', 'price', 'Happ сейчас выгоднее всего: от 190 ₽ в месяц, все страны сразу. А первые 7 дней — бесплатно.', [{ label: '🎁 Получить бесплатно', main: true, href: BOT, go: () => cheer() }]],
+        ['#pricing', 'price', 'Happ сейчас выгоднее всего: от {p:happ:30} в месяц, все страны сразу. А первые {trial} — бесплатно.', [{ label: '🎁 Получить бесплатно', main: true, href: BOT, go: () => cheer() }]],
         ['#download', 'dl', 'Выберите своё устройство — для Happ и AmneziaVPN есть свои кнопки. На iPhone Happ есть в российском App Store.', []],
         ['#partners', 'earn', 'Хотите VPN бесплатно? Приглашайте друзей — подвигайте ползунок и посчитайте бонусы.', []],
         ['#faq', 'faq', 'Не нашли ответ? Напишите в поддержку — ответим в Telegram.', [{ label: '✉️ Поддержка', href: 'https://t.me/Hoshimoto_03' }]],
@@ -662,7 +665,7 @@ function start() {
       ...SMALL.map((x) => x.a),
       ...KB.flatMap((x) => (x.c ? x.c() : []).map((c) => c.go && c.go.say).filter(Boolean)),
     ];
-    window.__hoshiTexts = [...new Set(list)].map((t) => spokenText(t)).filter(Boolean).map((t) => ({ k: vkey(t), text: t }));
+    window.__hoshiTexts = [...new Set(list)].map((t) => spokenText(live(t))).filter(Boolean).map((t) => ({ k: vkey(t), text: t }));
   }
 
   if (saved.hidden) return;
